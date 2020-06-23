@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "Monserrat_Light";
+  src: url("fonts/monserrat/Montserrat-Light.otf");
+}
+
+@font-face {
+  font-family: "samsung";
+  src: url("fonts/samsung/samsungsharpsans.otf");
+}
+
+@font-face {
+  font-family: "proxima";
+  src: url("fonts/proxima/ProximaNova-Light.otf");
+}
+
+@font-face {
+  font-family: "muli-variable";
+  src: url("theme/fonts/Muli/Muli-VariableFont_wght.ttf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  font-size: 1rem !important;
+  font-family: "muli-variable", serif !important;
+}
+
+a {
+  cursor: pointer;
+}
+
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+td,
+th,
+div {
+  font-family: "muli-variable", serif !important;
+}
+
+span.material-icons {
+  font-family: "Material Icons" !important;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+.MuiInput-underline:after,
+.MuiInput-underline:before {
+  border: none !important;
+  padding-left: 5px;
+}
+
+@media (max-width: 599.95px) {
+  body {
+    font-size: 16px;
+  }
+}

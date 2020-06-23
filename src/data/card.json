@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "title": "Məlumatlarım",
+    "auth": "1,2,3",
+    "icon": "info",
+    "type": "main"
+  },
+  {
+    "id": 2,
+    "title": "Bildirişlər",
+    "auth": "1,2,3",
+    "icon": "notification",
+    "type": "main"
+  },
+  {
+    "id": 3,
+    "title": "Şəxsi hesab vərəqəsi",
+    "auth": "1,2,3",
+    "icon": "profile",
+    "type": "main"
+  },
+  {
+    "id": 4,
+    "title": "Poçt göndərişlərim",
+    "auth": "1,2,3",
+    "icon": "box",
+    "type": "main"
+  },
+  {
+    "id": 5,
+    "title": "E-növbə",
+    "auth": "1,2,3",
+    "icon": "traffic",
+    "type": "main"
+  },
+  {
+    "id": 6,
+    "title": "Sərhəddən keçirəcəyim nəqliyyat haqqında ilkin məlumat",
+    "auth": "1,2,3",
+    "icon": "check-list",
+    "type": "main"
+  },
+  {
+    "id": 7,
+    "title": "Səlahiyyətlərin verilməsi",
+    "auth": "1,2,3",
+    "icon": "permission",
+    "type": "main"
+  },
+  {
+    "id": 8,
+    "title": "Müraciətlər",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main"
+  },
+  {
+    "id": 9,
+    "title": "Poçt Bəyannaməsi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 10,
+    "title": "Sərnişin Bəyannaməsi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 11,
+    "title": "Elektron gömrük ödənişləri",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 12,
+    "title": "GÖEN- Gömrük ödənişlərinin ödəyicisinin eyniləşdirmə nömrəsinin alınması",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 13,
+    "title": "Xarici iqtisadi fəaliyyətin Mal nomenklaturası",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 14,
+    "title": "Nəqliyyatın idxalı üçün gömrük rüsumların hesablanması",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 15,
+    "title": "Müraciətlər",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "main-services"
+  },
+  {
+    "id": 16,
+    "title": "Müraciətlər",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 17,
+    "title": "Gömrük təmsilçiliyi müqaviləsi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 18,
+    "title": "Qısa idxal bəyannaməsi və monitorinqi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 19,
+    "title": "Karqo daşımalarında iştirak edən şirkətlər üçün mallar haqqında məlumatların göndərilməsi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 20,
+    "title": "Gömrük Bəyannaməsi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 21,
+    "title": "Elektron gömrük ödənişləri",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 22,
+    "title": "E-CMR",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 23,
+    "title": "E-invoys",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 24,
+    "title": "Rəsmiləşdirilmə üçün tələb olunan sənədlərin qeydiyyatı",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 25,
+    "title": "İdxal-ixrac vergilərindən azadolma haqqında sertifikat almaq üçün müraciət",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 26,
+    "title": "idxal-ixrac əməliyyatlarının statistikası",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 27,
+    "title": "Məcburi qərarlar",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 28,
+    "title": "Mərkəzi Gömrük Ekspertiza İdarəsinə müraciət",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 29,
+    "title": "Əqli mülkiyyə hüquqlarının qorunması üçün müraciət",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  },
+  {
+    "id": 30,
+    "title": "Poçt daşımalarında iştirak edən şirkətlər üçün mallar haqqında məlumatların göndərilməsi",
+    "auth": "1,2,3",
+    "icon": "message",
+    "type": "for-xif-members"
+  }
+]

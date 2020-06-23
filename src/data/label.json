@@ -1,0 +1,15 @@
+[
+  {
+    "az": {
+      "info": "melumat"
+    }
+  },
+  {
+    "title": "ru",
+    "lables": "{param}"
+  },
+  {
+    "title": "en",
+    "lables": []
+  }
+]

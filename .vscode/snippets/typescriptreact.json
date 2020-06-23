@@ -1,0 +1,61 @@
+{
+  "jss style pattern": {
+    "prefix": "jss",
+    "body": [
+      "import { makeStyles } from \"@material-ui/core/styles\";",
+      "$1",
+      "export const useStyles = makeStyles((theme) => {",
+      "  return {",
+      "    [theme.breakpoints.down(\"xl\")]: {},",
+      "    [theme.breakpoints.down(\"lg\")]: {},",
+      "    [theme.breakpoints.down(\"md\")]: {},",
+      "    [theme.breakpoints.down(\"sm\")]: {},",
+      "    [theme.breakpoints.down(\"xs\")]: {},",
+      "  };",
+      "});",
+      ""
+    ],
+    "description": "jss style pattern"
+  },
+  "simple component": {
+    "prefix": "cc",
+    "body": [
+      "import React, { FC } from \"react\";",
+      "import { useStyles } from \"./$2\";",
+      "import { useTranslator } from \"localization\"",
+      "",
+      "export const  $1:FC<$3> = () => {",
+      "  const lang = useTranslator();",
+      "  const classes = useStyles();",
+      "",
+      "  return {",
+      "      $4",
+      "  };",
+      "};",
+      ""
+    ],
+    "description": "simple component"
+  },
+  "redux component": {
+    "prefix": "ccr",
+    "body": [
+      "import React, { FC } from \"react\";",
+      "import { useStyles } from \"./$2\";",
+      "import { useTranslator } from \"localization\";",
+      "import { connect } from \"react-redux\";",
+      "import { IAppState } from \"store/reducers\";",
+      "",
+      "const $1: FC<$3> = () => {",
+      "  const lang = useTranslator();",
+      "  const classes = useStyles();",
+      "",
+      "  return <>$4</>;",
+      "};",
+      "",
+      "const mapStateToProps = (state: IAppState) => ({});",
+      "",
+      "export default connect(mapStateToProps, null)($1);"
+    ],
+    "description": "redux component"
+  }
+}

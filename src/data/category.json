@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Şəxsi kabinet",
+    "icon": "home",
+    "auth": "0,1,2",
+    "enabled": true
+  },
+  {
+    "id": 2,
+    "title": "Əsas xidmətlər",
+    "icon": "",
+    "auth": "0,1,2",
+    "enabled": true
+  }
+]

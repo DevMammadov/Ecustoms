@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Şəxsi Kabinet",
+    "icon": "",
+    "link": "/",
+    "enabled": true,
+    "menu": [
+      {
+        "title": "Məlumatlarım",
+        "link": "/my-info",
+        "icon": "faInfoCircle",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Bildirişlər",
+        "link": "/notifications",
+        "icon": "faBell",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Şəxsi hesab vərəqəsi",
+        "link": "/construction/personal-card",
+        "icon": "faUserCircle",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "İstifadəçilər",
+        "link": "/giving-permissions",
+        "icon": "faUserPlus",
+        "auth": "1,0",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "title": "Əsas xidmətlər",
+    "link": "/main-services",
+    "icon": "",
+    "enabled": true,
+    "menu": [
+      {
+        "title": "Fiziki şəxslər üçün",
+        "link": "/for-individuals",
+        "icon": "faUser",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "XİF iştirakçıları üçün",
+        "link": "/for-xif",
+        "icon": "faUserTie",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Təşkilatlar üçün",
+        "link": "/for-company",
+        "icon": "faUserFriends",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Açıq məlumatlar",
+        "link": "/construction/free-informations",
+        "icon": "faProjectDiagram",
+        "auth": "1,0",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "title": "",
+    "link": "",
+    "icon": "",
+    "enabled": true,
+    "menu": [
+      {
+        "title": "e - xidmətlər",
+        "link": "/construction/video-courses",
+        "icon": "faFilmAlt",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Rəy və təkliflər",
+        "link": "/construction/comments",
+        "icon": "faCommentAltDots",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Asan logout",
+        "link": "https://asanlogintest.my.gov.az/dashboard",
+        "icon": "faSignOutAlt",
+        "auth": "0",
+        "enabled": true
+      },
+      {
+        "title": "Daxil ol",
+        "link": "/login",
+        "icon": "faSignInAlt",
+        "auth": "1",
+        "enabled": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "reducer pattern": {
+    "prefix": "reducer",
+    "body": [
+      "import { handleActions } from \"redux-actions\";",
+      "import { $2 } from \"./action\";",
+      "",
+      "export interface $1 {",
+      "  loading: boolean;",
+      "}",
+      "",
+      "const initialState: $1 = {",
+      "  loading: false,",
+      "};",
+      "",
+      "export default handleActions(",
+      "  {",
+      "    [example.started]: (state) => ({ ...state, loading: true }),",
+      "    [example.failed]: (state) => ({ ...state, loading: false }),",
+      "    [example.success]: (state, action: any) => ({ ...state, loading: false }),",
+      "  },",
+      "  initialState",
+      ");",
+      ""
+    ],
+    "description": "reducer pattern"
+  },
+  "saga pattern": {
+    "prefix": "saga",
+    "body": [
+      "import { bindAsyncActions } from \"helpers\";",
+      "import { takeEvery, put } from \"redux-saga/effects\";",
+      "import { $2 } from \"./action\";",
+      "import { toast } from \"react-toastify\";",
+      "",
+      "export function* $1() {",
+      "  yield takeEvery(action, bindAsyncActions(actionAsync)(api.action));",
+      "}",
+      ""
+    ],
+    "description": "action pattern"
+  },
+  "actions pattern": {
+    "prefix": "actions",
+    "body": [
+      "import { createActionFactory } from \"helpers\";",
+      "",
+      "const factory = createActionFactory(\"\");",
+      "",
+      "export const action = factory.create(\"\");",
+      "export const actionAsync = factory.createAsync(\"\");",
+      "",
+      "export const Actions = {",
+      "  action,",
+      "  actionAsync,",
+      "};",
+      ""
+    ],
+    "description": "actions pattern"
+  },
+  "single action": {
+    "prefix": "act",
+    "body": ["export const $1 = factory.create(\"$2\");"],
+    "description": "single action"
+  },
+  "single async action": {
+    "prefix": "actasync",
+    "body": ["export const $1 = factory.createAsync(\"$2\");"],
+    "description": "single async action"
+  }
+}

@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "title": "Məlumatlarım",
+        "auth": "1,2,3",
+        "icon": "info"
+    },
+    {
+        "id": 2,
+        "title": "Bildirişlər",
+        "auth": "1,2,3",
+        "icon": "notification"
+    },
+    {
+        "id": 3,
+        "title": "Şəxsi hesab vərəqəsi",
+        "auth": "1,2,3",
+        "icon": "profile"
+    },
+    {
+        "id": 4,
+        "title": "Poçt göndərişlərim",
+        "auth": "1,2,3",
+        "icon": "box"
+    },
+    {
+        "id": 5,
+        "title": "E-növbə",
+        "auth": "1,2,3",
+        "icon": "traffic"
+    },
+    {
+        "id": 6,
+        "title": "Sərhəddən keçirəcəyim nəqliyyat haqqında ilkin məlumat",
+        "auth": "1,2,3",
+        "icon": "check-list"
+    },
+    {
+        "id": 7,
+        "title": "Səlahiyyətlərin verilməsi",
+        "auth": "1,2,3",
+        "icon": "permission"
+    },
+    {
+        "id": 8,
+        "title": "Müraciətlər",
+        "auth": "1,2,3",
+        "icon": "message"
+    }
+]
