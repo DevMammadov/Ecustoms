@@ -2,10 +2,7 @@ import myInfoApi from "api/myInfo.api";
 import { bindAsyncActions } from "helpers";
 import { toast } from "react-toastify";
 import { put, takeEvery } from "redux-saga/effects";
-import { translator } from "translation";
 import { MyinfoActions } from "./action";
-
-const lang: any = translator();
 
 export function* myInfoSaga() {
   yield takeEvery(MyinfoActions.getInfo, bindAsyncActions(MyinfoActions.getInfoAsync)(myInfoApi.getInfo));
@@ -120,7 +117,7 @@ function* getBankInfoFlow() {
 }
 
 const updateInfoFlow = () => {
-  toast.success(lang.usersInfoUpdated);
+  toast.success("melumatlariniz yenilendi");
 };
 
 const updateInfoFailFlow = ({ payload }: any) => {

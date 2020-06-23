@@ -3,9 +3,6 @@ import { bindAsyncActions } from "helpers";
 import { toast } from "react-toastify";
 import { takeEvery, put } from "redux-saga/effects";
 import { PermissionsActions } from "./action";
-import { translator } from "translation";
-
-const lang: any = translator();
 
 export function* permissionsSaga() {
   yield takeEvery(
@@ -59,11 +56,11 @@ const failFlow = ({ payload }: any) => {
 };
 
 const permissionSuccessFlow = () => {
-  toast.success(lang.permissionsUpdated);
+  toast.success("selahiyyetleriniz yenilendi");
 };
 
 const updateActivitySuccessFlow = () => {
-  toast.success(lang.statusUpdated);
+  toast.success("statusunuz yenilendi");
 };
 
 function* getWorkersFlow(data: any) {
