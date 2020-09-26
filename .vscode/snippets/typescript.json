@@ -67,5 +67,10 @@
     "prefix": "actasync",
     "body": ["export const $1 = factory.createAsync(\"$2\");"],
     "description": "single async action"
+  },
+  "import named component": {
+    "prefix": "imp",
+    "body": ["import {$2} from \"$1\";"],
+    "description": "import named component"
   }
 }

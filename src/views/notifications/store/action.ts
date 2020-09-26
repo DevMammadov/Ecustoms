@@ -11,11 +11,7 @@ export const getFilterFieldsAsync = factory.createAsync("GET_FILTER_FIELDS_ASYNC
 export const getNotify = factory.create("GET_NOTIFY");
 export const getNotifyAsync = factory.createAsync("GET_NOTIFY_ASYNC");
 
-export const sendNotifyFilterForm = factory.create("SEND_NOTIFY_FILTER_FORM");
-export const sendNotifyFilterFormAsync = factory.createAsync("SEND_NOTIFY_FILTER_FORM_ASYNC");
-
-export const togglePage = factory.create("TOGGLE_PAGE");
-export const toogleFiltering = factory.create("TOGGLE_FILTERING");
+export const toggleFilter = factory.create("TOGGLE_FILTERING");
 
 export const notifyActions = {
   getLastNotify,
@@ -24,8 +20,5 @@ export const notifyActions = {
   getNotifyAsync,
   getFilterFields,
   getFilterFieldsAsync,
-  sendNotifyFilterForm,
-  sendNotifyFilterFormAsync,
-  togglePage,
-  toogleFiltering,
+  toggleFilter,
 };

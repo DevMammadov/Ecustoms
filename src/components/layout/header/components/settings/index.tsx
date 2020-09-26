@@ -1,8 +1,10 @@
 import React, { FC } from "react";
-import { IconButton, Menu, MenuItem } from "@material-ui/core";
+import { IconButton, Menu } from "@material-ui/core";
 import { useStyles } from "./settings.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GovList } from "./govList";
 import { faTh } from "@fortawesome/pro-solid-svg-icons";
+import { useTranslator } from "localization";
 
 interface ISettingsPage {
   onThemeChange(thme: string): void;
@@ -11,6 +13,7 @@ interface ISettingsPage {
 
 export const Settings: FC<ISettingsPage> = ({ onThemeChange, selected }) => {
   const classes = useStyles();
+  const lang = useTranslator("header");
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -26,22 +29,19 @@ export const Settings: FC<ISettingsPage> = ({ onThemeChange, selected }) => {
 
   return (
     <div>
-      <IconButton onClick={handleClick} className={classes.settings}>
+      <IconButton onClick={handleClick} className={classes.settings} aria-controls="simple-menu" aria-haspopup="true">
         <FontAwesomeIcon icon={faTh} className={classes.icon} />
       </IconButton>
+
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
-        keepMounted
         open={Boolean(anchorEl)}
         onClose={() => handleClose(selected)}
+        classes={{ paper: classes.menuRoot }}
       >
-        <MenuItem selected={selected === "darkTheme"} onClick={() => handleClose("darkTheme")}>
-          Dark theme
-        </MenuItem>
-        <MenuItem selected={selected === "lightTheme"} onClick={() => handleClose("lightTheme")}>
-          Light theme
-        </MenuItem>
+        <h6 className={classes.menuHeader}>{lang.asanLoginConnectedSystems}</h6>
+        <GovList />
       </Menu>
     </div>
   );

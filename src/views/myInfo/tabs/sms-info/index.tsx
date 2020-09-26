@@ -26,18 +26,18 @@ const SmsInfo: FC<ISmsInfoPage> = ({
   sendUserEmailCode,
   sendUserEmail,
   removeEmail,
-  localToken,
-  pageLoading,
   width,
 }) => {
-  useEffect(() => {
-    getUserContacts();
-  }, [getUserContacts, localToken]);
-
   const lang = useTranslator("myInfo", ["alerts"]);
   const classes = useStyles();
   const [tab, setTab] = useState(0);
   const currentUser = useUser();
+
+  useEffect(() => {
+    if (currentUser.voen) {
+      getUserContacts();
+    }
+  }, [getUserContacts, currentUser.localToken, currentUser.voen]);
 
   const handleNumberSend = (number: string) => {
     if (!contacts.phoneNumbers?.some((num) => num.field === number.trim())) {
@@ -74,7 +74,7 @@ const SmsInfo: FC<ISmsInfoPage> = ({
       icon={faInfoCircle}
       classes={{ icon: classes.alertIcon, root: classes.alertContainer }}
       color="primary"
-      title={lang.permissionalert}
+      title={lang.voenRequired}
     />
   ) : isWidthUp("sm", width) ? (
     <Paper component="div" className={classes.paper}>
@@ -128,8 +128,8 @@ const SmsInfo: FC<ISmsInfoPage> = ({
         }}
         onChange={handleTabChange}
       >
-        <Tab disabled={pageLoading} label={lang.contactNumber} />
-        <Tab disabled={pageLoading} label={lang.email} />
+        <Tab disabled={currentUser.pageLoading} label={lang.contactNumber} />
+        <Tab disabled={currentUser.pageLoading} label={lang.email} />
       </Tabs>
 
       <TabPanel value={tab} index={0}>
@@ -173,8 +173,6 @@ const SmsInfo: FC<ISmsInfoPage> = ({
 const mapStateToProps = (state: IAppState) => ({
   contacts: state.myInfo.contacts,
   loading: state.myInfo.loading,
-  localToken: state.user.localToken,
-  pageLoading: state.user.pageLoading,
 });
 
 export default withWidth()(connect(mapStateToProps, MyinfoActions)(SmsInfo));

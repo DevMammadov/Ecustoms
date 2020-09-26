@@ -1,0 +1,20 @@
+FROM registry.dgk:3000/node:12.16.1 as build-deps
+
+WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
+COPY .npmrc .npmrc 
+RUN yarn
+RUN rm -f .npmrc
+COPY . ./
+RUN rm .env.production .env
+RUN mv .env.staging .env.production
+RUN yarn build
+
+FROM registry.dgk:3000/nginx:latest
+COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
+COPY /nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN unlink /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Asia/Baku /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

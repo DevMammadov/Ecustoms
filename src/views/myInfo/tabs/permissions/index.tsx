@@ -9,21 +9,22 @@ import { decode } from "jsonwebtoken";
 import { ILocalTokenDecoded } from "types";
 import { IMainPermissions, IInfoPermissions } from "views/giving-permissions/types";
 import { useTranslator } from "localization";
+import { useUser } from "hooks";
 
 export interface IPermissionPage {
   width: any;
-  localToken: string;
 }
 
-const Permission: FC<IPermissionPage> = ({ width, localToken }) => {
+const Permission: FC<IPermissionPage> = ({ width }) => {
   const lang = useTranslator("myInfo");
   const classes = useStyles();
   const [permissions, setPermissions] = useState<IMainPermissions & IInfoPermissions>({} as any);
+  const currentUser = useUser();
 
   useEffect(() => {
-    const decoded: ILocalTokenDecoded = decode(localToken) as ILocalTokenDecoded;
+    const decoded: ILocalTokenDecoded = decode(currentUser.localToken) as ILocalTokenDecoded;
     setPermissions(decoded.permissions);
-  }, [localToken]);
+  }, [currentUser.localToken]);
 
   return (
     <Grid container component={Paper} className={classes.container}>
@@ -46,7 +47,4 @@ const Permission: FC<IPermissionPage> = ({ width, localToken }) => {
   );
 };
 
-const mapStateToProps = (state: IAppState) => ({
-  localToken: state.user.localToken,
-});
-export default connect(mapStateToProps, MyinfoActions)(withWidth()(Permission));
+export default connect(null, MyinfoActions)(withWidth()(Permission));

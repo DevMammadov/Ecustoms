@@ -24,13 +24,15 @@
       "import { useStyles } from \"./$2\";",
       "import { useTranslator } from \"localization\"",
       "",
-      "export const  $1:FC<$3> = () => {",
+      "export interface I$1{}",
+      "",
+      "export const $1: FC<I$1> = () => {",
       "  const lang = useTranslator();",
       "  const classes = useStyles();",
       "",
-      "  return {",
-      "      $4",
-      "  };",
+      "  return (",
+      "      <>$3</>",
+      "  );",
       "};",
       ""
     ],
@@ -45,11 +47,13 @@
       "import { connect } from \"react-redux\";",
       "import { IAppState } from \"store/reducers\";",
       "",
-      "const $1: FC<$3> = () => {",
+      "export interface I$1{}",
+      "",
+      "const $1: FC<I$1> = () => {",
       "  const lang = useTranslator();",
       "  const classes = useStyles();",
       "",
-      "  return <>$4</>;",
+      "  return <>$3</>;",
       "};",
       "",
       "const mapStateToProps = (state: IAppState) => ({});",
@@ -57,5 +61,10 @@
       "export default connect(mapStateToProps, null)($1);"
     ],
     "description": "redux component"
+  },
+  "import named component": {
+    "prefix": "imp",
+    "body": ["import {$2} from \"$1\";"],
+    "description": "import named component"
   }
 }

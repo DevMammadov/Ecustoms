@@ -1,11 +1,15 @@
-import { asanRequest, defaultRequest, emptyRequest } from "helpers";
+import { asanRequest, defaultRequest, emptyRequest, nonTokenRequest } from "helpers";
 import { ISendToken } from "types";
 
 export default class UserApi {
   static getUser = () => {
-    return emptyRequest.get("https://asanlogintest.my.gov.az/ssoauthz/api/v1/token", {
+    return emptyRequest.get(`${process.env.REACT_APP_ASAN_BASE_URL}/ssoauthz/api/v1/token`, {
       withCredentials: true,
     });
+  };
+
+  static getPhoto = () => {
+    return defaultRequest.get("user/photo").then(({ data }) => data);
   };
 
   static getCertificates = (token: string) => {
@@ -17,7 +21,7 @@ export default class UserApi {
   };
 
   static sendToken = (payload: ISendToken) => {
-    return defaultRequest.get("/user/login", {
+    return nonTokenRequest.get("/user/login", {
       headers: {
         asanToken: payload.token,
         selectedVoen: payload.voen,

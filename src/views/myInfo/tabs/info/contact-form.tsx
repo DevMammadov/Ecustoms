@@ -14,9 +14,15 @@ const ContactForm = ({ handleSubmit, submitting }: any) => {
 
   return (
     <form onSubmit={handleSubmit} className={classes.contactForm}>
-      <Field component={TextField} name="email" validate={email} label={lang.email} />
-      <Field component={TextField} name="phone" label={lang.contactNumber} />
-      <Field component={TextField} name="address" label={lang.currentAddress} />
+      <Field
+        component={TextField}
+        name="email"
+        validate={email}
+        label={lang.email}
+        className={classes.inputContainer}
+      />
+      <Field component={TextField} name="phone" label={lang.contactNumber} className={classes.inputContainer} />
+      <Field component={TextField} name="address" label={lang.currentAddress} className={classes.inputContainer} />
       <Button disabled={submitting} variant="contained" type="submit" color="primary">
         {lang.save}
       </Button>

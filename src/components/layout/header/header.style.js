@@ -8,6 +8,7 @@ export const useStyles = makeStyles((theme) => {
       display: "flex",
       justifyContent: "space-between",
       background: theme.palette.background.wildSand,
+      height: 52,
     },
     menuButton: {
       padding: "0px 10px",

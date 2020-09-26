@@ -4,11 +4,12 @@ export const useStyles = makeStyles((theme) => {
   return {
     listContainer: {
       height: "100%",
+      marginBottom: theme.spacing(2),
     },
     listRoot: {
       "& .MuiListItem-root": {
         backgroundColor: theme.palette.custom.whiteToBlack,
-        borderBottom: `1px solid ${theme.palette.custom.borderColor}`,
+        borderBottom: `1px solid ${theme.palette.color.gray}`,
         padding: theme.spacing(0.5, 1),
       },
     },
@@ -31,6 +32,11 @@ export const useStyles = makeStyles((theme) => {
       height: theme.spacing(6),
       width: theme.spacing(6),
       marginRight: theme.spacing(2),
+    },
+    pagination: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: theme.spacing(1),
     },
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},

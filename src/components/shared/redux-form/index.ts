@@ -4,3 +4,6 @@ export * from "./radio";
 export * from "./radio-group";
 export * from "./file-uploader";
 export * from "./select";
+export * from "./autocomplete";
+export * from "./checkbox";
+export * from "./form";

@@ -1,6 +1,6 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "@material-ui/core";
+import { IconButton, withWidth, isWidthUp } from "@material-ui/core";
 import clsx from "clsx";
 import React, { FC, useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -9,49 +9,48 @@ import { ISendToken, ISertificate } from "types";
 import { userActions } from "views/login/store/action";
 import { Keylist, LoginButton, Notify, Profile, Settings, Lang } from "./components";
 import { useStyles } from "./header.style";
-import { IUserState } from "views/login/store/reducer";
 import { headerActions } from "./store/header.actions";
 import { notifyActions } from "views/notifications/store/action";
 import { IHeaderStore } from "./store/header.reducer";
 import { useUser } from "hooks";
 import { INotifyState } from "views/notifications/store/reducer";
 import * as signalR from "@microsoft/signalr";
+import { setToStorage } from "helpers/storage";
+import { useHistory } from "react-router-dom";
 
 interface IHeaderProps {
   collapseMenu(): void;
-  checkToken(token: string): void;
   sendToken(payload: ISendToken): void;
-  setSertificate(number: string): void;
   className?: string;
-  user: IUserState;
   notify: INotifyState;
   header: IHeaderStore;
   setTheme(theme: string): void;
   changeLang(lang: string): void;
   getLastNotify(): void;
+  width: any;
 }
 
 const Header: FC<IHeaderProps> = ({
   collapseMenu,
   sendToken,
-  setSertificate,
   className,
   header,
-  user,
   setTheme,
   changeLang,
   getLastNotify,
+  width,
   notify,
 }) => {
   const classes = useStyles();
-  const currentUser = useUser(false);
+  const currentUser = useUser();
   const [hubConn, setHubConn] = useState<any>(null);
   const [notifyCount, setNotifyCount] = useState<number>(0);
+  const history = useHistory();
 
   useEffect(() => {
     if (!hubConn) {
       const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl("https://tapibusiness.customs.gov.az/notify")
+        .withUrl(`${process.env.REACT_APP_API_BASE_URL}/notify`)
         .configureLogging(signalR.LogLevel.Information)
         .withAutomaticReconnect()
         .build();
@@ -59,10 +58,10 @@ const Header: FC<IHeaderProps> = ({
     }
 
     if (hubConn && hubConn.connectionState === "Disconnected") {
-      hubConn.start().then((a: any) => {
+      hubConn.start().then(() => {
         if (hubConn.connectionId) {
           hubConn
-            .invoke("newNotification", hubConn.connectionId, currentUser.localToken)
+            .invoke("newNotification", hubConn.connectionId, `Bearer ${currentUser.localToken}`)
             .catch((err: any) => console.error(err));
         }
       });
@@ -76,7 +75,7 @@ const Header: FC<IHeaderProps> = ({
               .invoke("newNotification", hubConn.connectionId, currentUser.localToken)
               .catch((err: any) => console.error(err));
           }
-          if (typeof message.data === "number") {
+          if (typeof message?.data === "number") {
             setNotifyCount(message.data);
           }
         })
@@ -87,10 +86,10 @@ const Header: FC<IHeaderProps> = ({
   const handleSertificateSelect = (sertNumber: string) => {
     if (currentUser.isLogin) {
       const voen =
-        user.sertificates.filter((sert: ISertificate) => sert.certificateNumber === sertNumber)[0].structureData
+        currentUser.sertificates.filter((sert: ISertificate) => sert.certificateNumber === sertNumber)[0].structureData
           ?.voen || "null";
-      sendToken({ token: user.asanToken, voen: voen });
-      setSertificate(sertNumber);
+      sendToken({ token: currentUser.asanToken, voen: voen });
+      setToStorage("selectedSert", currentUser.sertificates.filter((c) => c.certificateNumber === sertNumber)[0]);
       hubConn.stop();
     }
   };
@@ -106,18 +105,18 @@ const Header: FC<IHeaderProps> = ({
   const renderRight = () => {
     return currentUser.isLogin ? (
       <>
-        {currentUser.loginType !== "loginWithPassword" && (
+        {currentUser.loginType !== "loginWithPassword" && isWidthUp("sm", width) && (
           <Keylist
-            sertificates={user.sertificates}
-            selected={user.selectedSertificate?.certificateNumber}
+            sertificates={currentUser.sertificates}
+            selected={currentUser.selectedSertificate?.certificateNumber}
             onChange={handleSertificateSelect}
             className={classes.keylist}
-            loading={user.pageLoading}
+            loading={currentUser.pageLoading}
           />
         )}
 
         <div className={classes.profile}>
-          <Profile user={currentUser.fullName} />
+          <Profile />
         </div>
         <Lang selected={header.lang} changeLang={(lang) => changeLang(lang)} />
         <Notify count={notifyCount} type="sms" data={notify.lastNotify} />
@@ -131,7 +130,7 @@ const Header: FC<IHeaderProps> = ({
         <Settings selected={header.theme} onThemeChange={handleThemeChange} />
       </>
     ) : (
-      <LoginButton />
+      !currentUser.pageLoading && <LoginButton />
     );
   };
 
@@ -149,9 +148,8 @@ const Header: FC<IHeaderProps> = ({
 
 const mapStateToProps = (state: IAppState) => {
   return {
-    user: state.user,
     header: state.header,
     notify: state.notify,
   };
 };
-export default connect(mapStateToProps, { ...userActions, ...headerActions, ...notifyActions })(Header);
+export default withWidth()(connect(mapStateToProps, { ...userActions, ...headerActions, ...notifyActions })(Header));

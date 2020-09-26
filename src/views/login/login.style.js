@@ -26,6 +26,12 @@ export const useStyles = makeStyles((theme) => {
     asideTitle: {
       fontSize: "0.8rem",
     },
+    mobileHeader: {
+      display: "none",
+    },
+    mobileFooter: {
+      display: "none",
+    },
     main: {
       background: theme.palette.background.wildSand,
       paddingTop: theme.spacing(1),
@@ -51,8 +57,60 @@ export const useStyles = makeStyles((theme) => {
     },
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
-    [theme.breakpoints.down("md")]: {},
-    [theme.breakpoints.down("sm")]: {},
-    [theme.breakpoints.down("xs")]: {},
+    [theme.breakpoints.down("md")]: {
+      mobileHeader: {
+        "& img": {
+          height: 150,
+        },
+      },
+      loginForm: {
+        width: "60%",
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      mainContent: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+      },
+      mobileHeader: {
+        display: "block",
+        textAlign: "center",
+        marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(5),
+        "& img": {
+          height: 100,
+        },
+        "& h3": {
+          margin: theme.spacing(1, 0),
+        },
+      },
+      mobileFooter: {
+        display: "block",
+      },
+      aside: {
+        display: "none",
+      },
+      loginForm: {
+        width: "70%",
+      },
+    },
+    [theme.breakpoints.down("xs")]: {
+      mobileHeader: {
+        marginTop: theme.spacing(4),
+        "& img": {
+          height: 80,
+        },
+        "& h3": {
+          margin: theme.spacing(1, 0),
+        },
+      },
+      aside: {
+        display: "none",
+      },
+      loginForm: {
+        width: "90%",
+      },
+    },
   };
 });

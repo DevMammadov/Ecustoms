@@ -1,0 +1,607 @@
+﻿<?xml version="1.0"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CargoInfo" >
+    <xs:complexType>
+      <xs:sequence>
+              <xs:element name="GOODS" maxOccurs="unbounded" minOccurs="1" nillable="false">
+                <xs:complexType>
+            <xs:sequence>
+              <xs:element type="QIB_NO_TYPE" name="QIB_NO"/>
+              <xs:element type="DIRECTION_TYPE" name="DIRECTION"/>
+              <xs:element type="GOODS_CODE_TYPE" name="GOODS_CODE"/>
+              <xs:element type="NAME_OF_GOODS_TYPE" name="NAME_OF_GOODS"/>
+              <xs:element type="QUANTITY_OF_GOODS_TYPE" name="QUANTITY_OF_GOODS"/>
+              <xs:element type="WEIGHT_GOODS_TYPE" name="WEIGHT_GOODS"/>
+              <xs:element type="INVOYS_PRICE_TYPE" name="INVOYS_PRICE"/>
+              <xs:element type="CURRENCY_TYPE_TYPE" name="CURRENCY_TYPE"/>
+              <xs:element type="IDX_VOEN_TYPE" name="IDXAL_VOEN"/>
+              <xs:element type="IDX_NAME_TYPE" name="IDXAL_NAME"/>
+              <xs:element type="IDX_ADRESS_TYPE" name="IDXAL_ADRESS"/>
+              <xs:element type="PHONE_TYPE" name="IDXAL_PHONE"/>
+              <xs:element type="IDX_NAME_TYPE" name="IXRAC_NAME"/>
+              <xs:element type="IDX_ADRESS_TYPE" name="IXRAC_ADRESS"/>
+              <xs:element type="COUNTRIES_TYPE" name="GOODS_TRAFFIC_FR"/>
+              <xs:element type="COUNTRIES_TYPE" name="GOODS_TRAFFIC_TO"/>
+              <xs:element type="OBJECT_CODE_TYPE" name="OBJECT_CODE"/>
+			  <xs:element type="OBJECT_ADDRESS_TYPE" name="OBJECT_ADDRESS"/>
+              <xs:element type="DESTINATION_DATE_TYPE" name="DESTINATION_DATE"/>
+            </xs:sequence>
+				  
+                </xs:complexType>
+              </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+    <xs:simpleType name="QIB_NO_TYPE">
+       <xs:restriction base = "xs:string">
+	   <xs:minLength value="1"></xs:minLength>
+          <xs:maxLength value="15"></xs:maxLength>
+       </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="DIRECTION_TYPE">
+          <xs:union>			 
+			  <xs:simpleType>
+				<xs:restriction base="xs:int">				
+				  <xs:enumeration value = "1"/>		
+				  <xs:enumeration value = "2"/>						  
+				</xs:restriction>
+		    </xs:simpleType>
+       </xs:union> 
+  </xs:simpleType>
+    <xs:simpleType name="GOODS_CODE_TYPE">	
+	<xs:restriction base = "xs:string">
+		  <xs:minLength value="4"></xs:minLength>
+          <xs:maxLength value="10"></xs:maxLength>
+        </xs:restriction>
+     </xs:simpleType>
+	<xs:simpleType name="NAME_OF_GOODS_TYPE">
+    <xs:restriction base = "xs:string">
+	   <xs:minLength value="1"></xs:minLength>
+      <xs:maxLength value="4000"></xs:maxLength>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="WEIGHT_GOODS_TYPE">
+          <xs:union>
+			  <xs:simpleType>
+				<xs:restriction base='xs:string'>
+				  <xs:length value="0"/>
+				</xs:restriction>
+			  </xs:simpleType>
+			  <xs:simpleType>
+				<xs:restriction base = "xs:decimal">
+				  <xs:minInclusive value = "0"/>
+				  <xs:totalDigits value="15"/>
+				  <xs:fractionDigits value = "3"/>
+				</xs:restriction>
+			  </xs:simpleType>
+		</xs:union>
+  </xs:simpleType>
+	<xs:simpleType name="QUANTITY_OF_GOODS_TYPE">
+				   <xs:union>
+					  <xs:simpleType>
+						<xs:restriction base='xs:string'>
+						  <xs:length value="0"/>
+						</xs:restriction>
+					   </xs:simpleType>
+					 <xs:simpleType>
+					<xs:restriction base = "xs:int">
+					  <xs:minInclusive value = "0"/>
+					  <xs:totalDigits value="8"/>
+					</xs:restriction>
+				  </xs:simpleType>
+			  </xs:union> 
+	  </xs:simpleType>
+    <xs:simpleType name="INVOYS_PRICE_TYPE">
+          <xs:union>
+			  <xs:simpleType>
+				<xs:restriction base='xs:string'>
+				  <xs:length value="0"/>
+				</xs:restriction>
+			  </xs:simpleType>
+			  <xs:simpleType>
+				<xs:restriction base = "xs:decimal">
+				  <xs:minInclusive value = "0"/>
+				  <xs:totalDigits value="18"/>
+				  <xs:fractionDigits value = "2"/>
+				</xs:restriction>
+			  </xs:simpleType>
+		</xs:union>
+  </xs:simpleType>
+    <xs:simpleType name="CURRENCY_TYPE_TYPE">
+		<xs:union>
+			  <xs:simpleType>
+				<xs:restriction base='xs:string'>
+				  <xs:length value="0"/>
+				</xs:restriction>
+			  </xs:simpleType>
+			  <xs:simpleType>
+				  <xs:restriction base="xs:int">
+			      <xs:enumeration value = "000"/>
+				  <xs:enumeration value = "004"/>
+				  <xs:enumeration value = "020"/>
+				  <xs:enumeration value = "024"/>
+				  <xs:enumeration value = "032"/>
+				  <xs:enumeration value = "036"/>
+				  <xs:enumeration value = "040"/>
+				  <xs:enumeration value = "044"/>
+				  <xs:enumeration value = "048"/>
+				  <xs:enumeration value = "050"/>
+				  <xs:enumeration value = "052"/>
+				  <xs:enumeration value = "056"/>
+				  <xs:enumeration value = "060"/>
+				  <xs:enumeration value = "064"/>
+				  <xs:enumeration value = "068"/>
+				  <xs:enumeration value = "072"/>
+				  <xs:enumeration value = "084"/>
+				  <xs:enumeration value = "090"/>
+				  <xs:enumeration value = "096"/>
+				  <xs:enumeration value = "100"/>
+				  <xs:enumeration value = "104"/>
+				  <xs:enumeration value = "108"/>
+				  <xs:enumeration value = "116"/>
+				  <xs:enumeration value = "124"/>
+				  <xs:enumeration value = "132"/>
+				  <xs:enumeration value = "136"/>
+				  <xs:enumeration value = "144"/>
+				  <xs:enumeration value = "152"/>
+				  <xs:enumeration value = "156"/>
+				  <xs:enumeration value = "170"/>
+				  <xs:enumeration value = "174"/>
+				  <xs:enumeration value = "180"/>
+				  <xs:enumeration value = "188"/>
+				  <xs:enumeration value = "191"/>
+				  <xs:enumeration value = "192"/>
+				  <xs:enumeration value = "196"/>
+				  <xs:enumeration value = "200"/>
+				  <xs:enumeration value = "208"/>
+				  <xs:enumeration value = "214"/>
+				  <xs:enumeration value = "218"/>
+				  <xs:enumeration value = "222"/>
+				  <xs:enumeration value = "230"/>
+				  <xs:enumeration value = "233"/>
+				  <xs:enumeration value = "238"/>
+				  <xs:enumeration value = "242"/>
+				  <xs:enumeration value = "246"/>
+				  <xs:enumeration value = "250"/>
+				  <xs:enumeration value = "262"/>
+				  <xs:enumeration value = "268"/>
+				  <xs:enumeration value = "270"/>
+				  <xs:enumeration value = "276"/>
+				  <xs:enumeration value = "288"/>
+				  <xs:enumeration value = "292"/>
+				  <xs:enumeration value = "300"/>
+				  <xs:enumeration value = "320"/>
+				  <xs:enumeration value = "324"/>
+				  <xs:enumeration value = "328"/>
+				  <xs:enumeration value = "332"/>
+				  <xs:enumeration value = "340"/>
+				  <xs:enumeration value = "344"/>
+				  <xs:enumeration value = "348"/>
+				  <xs:enumeration value = "352"/>
+				  <xs:enumeration value = "356"/>
+				  <xs:enumeration value = "360"/>
+				  <xs:enumeration value = "364"/>
+				  <xs:enumeration value = "368"/>
+				  <xs:enumeration value = "372"/>
+				  <xs:enumeration value = "376"/>
+				  <xs:enumeration value = "380"/>
+				  <xs:enumeration value = "388"/>
+				  <xs:enumeration value = "392"/>
+				  <xs:enumeration value = "398"/>
+				  <xs:enumeration value = "400"/>
+				  <xs:enumeration value = "404"/>
+				  <xs:enumeration value = "408"/>
+				  <xs:enumeration value = "410"/>
+				  <xs:enumeration value = "414"/>
+				  <xs:enumeration value = "417"/>
+				  <xs:enumeration value = "418"/>
+				  <xs:enumeration value = "422"/>
+				  <xs:enumeration value = "426"/>
+				  <xs:enumeration value = "428"/>
+				  <xs:enumeration value = "430"/>
+				  <xs:enumeration value = "434"/>
+				  <xs:enumeration value = "440"/>
+				  <xs:enumeration value = "442"/>
+				  <xs:enumeration value = "446"/>
+				  <xs:enumeration value = "450"/>
+				  <xs:enumeration value = "454"/>
+				  <xs:enumeration value = "458"/>
+				  <xs:enumeration value = "462"/>
+				  <xs:enumeration value = "470"/>
+				  <xs:enumeration value = "478"/>
+				  <xs:enumeration value = "480"/>
+				  <xs:enumeration value = "484"/>
+				  <xs:enumeration value = "496"/>
+				  <xs:enumeration value = "498"/>
+				  <xs:enumeration value = "504"/>
+				  <xs:enumeration value = "508"/>
+				  <xs:enumeration value = "512"/>				
+				  <xs:enumeration value = "516"/>
+				  <xs:enumeration value = "524"/>
+				  <xs:enumeration value = "528"/>
+				  <xs:enumeration value = "532"/>
+				  <xs:enumeration value = "533"/>
+				  <xs:enumeration value = "548"/>
+				  <xs:enumeration value = "554"/>
+				  <xs:enumeration value = "558"/>
+				  <xs:enumeration value = "566"/>
+				  <xs:enumeration value = "578"/>
+				  <xs:enumeration value = "586"/>
+				  <xs:enumeration value = "590"/>				 
+				  <xs:enumeration value = "598"/>
+				  <xs:enumeration value = "600"/>
+				  <xs:enumeration value = "604"/>
+				  <xs:enumeration value = "608"/>
+				  <xs:enumeration value = "616"/>
+				  <xs:enumeration value = "620"/>
+				  <xs:enumeration value = "624"/>
+				  <xs:enumeration value = "626"/>
+				  <xs:enumeration value = "634"/>
+				  <xs:enumeration value = "642"/>
+				  <xs:enumeration value = "643"/>
+				  <xs:enumeration value = "646"/>				
+				  <xs:enumeration value = "654"/>
+				  <xs:enumeration value = "678"/>
+				  <xs:enumeration value = "682"/>
+				  <xs:enumeration value = "690"/>
+				  <xs:enumeration value = "694"/>
+				  <xs:enumeration value = "702"/>
+				  <xs:enumeration value = "703"/>
+				  <xs:enumeration value = "704"/>
+				  <xs:enumeration value = "705"/>
+				  <xs:enumeration value = "706"/>
+				  <xs:enumeration value = "710"/>
+				  <xs:enumeration value = "716"/>				
+				  <xs:enumeration value = "724"/>
+				  <xs:enumeration value = "726"/>
+				  <xs:enumeration value = "740"/>
+				  <xs:enumeration value = "748"/>
+				  <xs:enumeration value = "752"/>
+				  <xs:enumeration value = "756"/>
+				  <xs:enumeration value = "760"/>
+				  <xs:enumeration value = "764"/>
+				  <xs:enumeration value = "776"/>
+				  <xs:enumeration value = "780"/>
+				  <xs:enumeration value = "784"/>
+				  <xs:enumeration value = "788"/>				 
+				  <xs:enumeration value = "792"/>
+				  <xs:enumeration value = "795"/>
+				  <xs:enumeration value = "800"/>
+				  <xs:enumeration value = "804"/>
+				  <xs:enumeration value = "807"/>
+				  <xs:enumeration value = "818"/>
+				  <xs:enumeration value = "826"/>
+				  <xs:enumeration value = "834"/>
+				  <xs:enumeration value = "840"/>
+				  <xs:enumeration value = "858"/>
+				  <xs:enumeration value = "860"/>	
+				  <xs:enumeration value = "862"/>
+				  <xs:enumeration value = "882"/>				
+				  <xs:enumeration value = "886"/>
+				  <xs:enumeration value = "890"/>
+				  <xs:enumeration value = "894"/>
+				  <xs:enumeration value = "901"/>
+				  <xs:enumeration value = "950"/>
+				  <xs:enumeration value = "952"/>
+				  <xs:enumeration value = "960"/>
+				  <xs:enumeration value = "987"/>
+				  <xs:enumeration value = "932"/>
+				  <xs:enumeration value = "914"/>
+				  <xs:enumeration value = "928"/>
+				  <xs:enumeration value = "931"/>
+				  <xs:enumeration value = "906"/>
+				  <xs:enumeration value = "954"/>				 
+				  <xs:enumeration value = "933"/>	
+				  <xs:enumeration value = "978"/>				  			  
+				</xs:restriction>
+			  </xs:simpleType>
+       </xs:union>
+  </xs:simpleType>
+  
+    <xs:simpleType name="IDX_VOEN_TYPE">
+    <xs:restriction base = "xs:string">
+      <xs:maxLength value="10"></xs:maxLength>
+    </xs:restriction>
+  </xs:simpleType>
+  
+    <xs:simpleType name="IDX_NAME_TYPE">
+    <xs:restriction base = "xs:string">
+      <xs:maxLength value="800"></xs:maxLength>
+    </xs:restriction>
+  </xs:simpleType>
+  
+    <xs:simpleType name="IDX_ADRESS_TYPE">
+    <xs:restriction base = "xs:string">
+      <xs:maxLength value="250"></xs:maxLength>
+    </xs:restriction>
+  </xs:simpleType>
+  
+    <xs:simpleType name="PHONE_TYPE">
+        <xs:restriction base = "xs:decimal">
+        </xs:restriction>
+     </xs:simpleType>
+  
+	<xs:simpleType name="COUNTRIES_TYPE">
+		<xs:union>
+			  <xs:simpleType>
+				  <xs:restriction base="xs:int">
+					<xs:enumeration value = "000"/>
+					<xs:enumeration value = "001"/>
+					<xs:enumeration value = "004"/>
+					<xs:enumeration value = "008"/>
+					<xs:enumeration value = "010"/>
+					<xs:enumeration value = "012"/>
+					<xs:enumeration value = "016"/>
+					<xs:enumeration value = "020"/>
+					<xs:enumeration value = "024"/>
+					<xs:enumeration value = "028"/>
+					<xs:enumeration value = "031"/>
+					<xs:enumeration value = "032"/>
+					<xs:enumeration value = "036"/>
+					<xs:enumeration value = "040"/>
+					<xs:enumeration value = "044"/>
+					<xs:enumeration value = "048"/>
+					<xs:enumeration value = "050"/>
+					<xs:enumeration value = "051"/>
+					<xs:enumeration value = "052"/>
+					<xs:enumeration value = "056"/>
+					<xs:enumeration value = "060"/>
+					<xs:enumeration value = "064"/>
+					<xs:enumeration value = "068"/>
+					<xs:enumeration value = "070"/>
+					<xs:enumeration value = "072"/>
+					<xs:enumeration value = "074"/>
+					<xs:enumeration value = "076"/>
+					<xs:enumeration value = "084"/>
+					<xs:enumeration value = "086"/>
+					<xs:enumeration value = "090"/>
+					<xs:enumeration value = "092"/>
+					<xs:enumeration value = "096"/>
+					<xs:enumeration value = "100"/>
+					<xs:enumeration value = "104"/>
+					<xs:enumeration value = "108"/>
+					<xs:enumeration value = "112"/>
+					<xs:enumeration value = "116"/>
+					<xs:enumeration value = "120"/>
+					<xs:enumeration value = "124"/>
+					<xs:enumeration value = "132"/>
+					<xs:enumeration value = "136"/>
+					<xs:enumeration value = "140"/>
+					<xs:enumeration value = "144"/>
+					<xs:enumeration value = "148"/>
+					<xs:enumeration value = "152"/>
+					<xs:enumeration value = "156"/>
+					<xs:enumeration value = "158"/>
+					<xs:enumeration value = "162"/>
+					<xs:enumeration value = "166"/>
+					<xs:enumeration value = "170"/>
+					<xs:enumeration value = "174"/>
+					<xs:enumeration value = "175"/>
+					<xs:enumeration value = "178"/>
+					<xs:enumeration value = "180"/>
+					<xs:enumeration value = "184"/>
+					<xs:enumeration value = "188"/>
+					<xs:enumeration value = "191"/>
+					<xs:enumeration value = "192"/>
+					<xs:enumeration value = "196"/>
+					<xs:enumeration value = "203"/>
+					<xs:enumeration value = "204"/>
+					<xs:enumeration value = "208"/>
+					<xs:enumeration value = "212"/>
+					<xs:enumeration value = "214"/>
+					<xs:enumeration value = "218"/>
+					<xs:enumeration value = "222"/>
+					<xs:enumeration value = "226"/>
+					<xs:enumeration value = "231"/>
+					<xs:enumeration value = "232"/>
+					<xs:enumeration value = "233"/>
+					<xs:enumeration value = "234"/>
+					<xs:enumeration value = "238"/>
+					<xs:enumeration value = "242"/>
+					<xs:enumeration value = "246"/>
+					<xs:enumeration value = "248"/>
+					<xs:enumeration value = "250"/>
+					<xs:enumeration value = "254"/>
+					<xs:enumeration value = "258"/>
+					<xs:enumeration value = "260"/>
+					<xs:enumeration value = "262"/>
+					<xs:enumeration value = "266"/>
+					<xs:enumeration value = "268"/>
+					<xs:enumeration value = "270"/>
+					<xs:enumeration value = "274"/>
+					<xs:enumeration value = "275"/>
+					<xs:enumeration value = "276"/>
+					<xs:enumeration value = "288"/>
+					<xs:enumeration value = "292"/>
+					<xs:enumeration value = "296"/>
+					<xs:enumeration value = "300"/>
+					<xs:enumeration value = "304"/>
+					<xs:enumeration value = "308"/>
+					<xs:enumeration value = "312"/>
+					<xs:enumeration value = "316"/>
+					<xs:enumeration value = "320"/>
+					<xs:enumeration value = "324"/>
+					<xs:enumeration value = "328"/>
+					<xs:enumeration value = "332"/>
+					<xs:enumeration value = "334"/>
+					<xs:enumeration value = "336"/>
+					<xs:enumeration value = "340"/>
+					<xs:enumeration value = "344"/>
+					<xs:enumeration value = "348"/>
+					<xs:enumeration value = "352"/>
+					<xs:enumeration value = "356"/>
+					<xs:enumeration value = "360"/>
+					<xs:enumeration value = "364"/>
+					<xs:enumeration value = "368"/>
+					<xs:enumeration value = "372"/>
+					<xs:enumeration value = "376"/>
+					<xs:enumeration value = "380"/>
+					<xs:enumeration value = "384"/>
+					<xs:enumeration value = "388"/>
+					<xs:enumeration value = "392"/>
+					<xs:enumeration value = "396"/>
+					<xs:enumeration value = "398"/>
+					<xs:enumeration value = "400"/>
+					<xs:enumeration value = "404"/>
+					<xs:enumeration value = "408"/>
+					<xs:enumeration value = "410"/>
+					<xs:enumeration value = "414"/>
+					<xs:enumeration value = "417"/>
+					<xs:enumeration value = "418"/>
+					<xs:enumeration value = "422"/>
+					<xs:enumeration value = "426"/>
+					<xs:enumeration value = "428"/>
+					<xs:enumeration value = "430"/>
+					<xs:enumeration value = "434"/>
+					<xs:enumeration value = "438"/>
+					<xs:enumeration value = "440"/>
+					<xs:enumeration value = "442"/>
+					<xs:enumeration value = "446"/>
+					<xs:enumeration value = "450"/>
+					<xs:enumeration value = "454"/>
+					<xs:enumeration value = "458"/>
+					<xs:enumeration value = "462"/>
+					<xs:enumeration value = "466"/>
+					<xs:enumeration value = "470"/>
+					<xs:enumeration value = "474"/>
+					<xs:enumeration value = "478"/>
+					<xs:enumeration value = "480"/>
+					<xs:enumeration value = "484"/>
+					<xs:enumeration value = "492"/>
+					<xs:enumeration value = "496"/>
+					<xs:enumeration value = "498"/>
+					<xs:enumeration value = "499"/>
+					<xs:enumeration value = "500"/>
+					<xs:enumeration value = "504"/>
+					<xs:enumeration value = "508"/>
+					<xs:enumeration value = "512"/>
+					<xs:enumeration value = "516"/>
+					<xs:enumeration value = "520"/>
+					<xs:enumeration value = "524"/>
+					<xs:enumeration value = "528"/>
+					<xs:enumeration value = "530"/>
+					<xs:enumeration value = "531"/>
+					<xs:enumeration value = "533"/>
+					<xs:enumeration value = "534"/>
+					<xs:enumeration value = "535"/>
+					<xs:enumeration value = "540"/>
+					<xs:enumeration value = "548"/>
+					<xs:enumeration value = "554"/>
+					<xs:enumeration value = "558"/>
+					<xs:enumeration value = "562"/>
+					<xs:enumeration value = "566"/>
+					<xs:enumeration value = "570"/>
+					<xs:enumeration value = "574"/>
+					<xs:enumeration value = "578"/>
+					<xs:enumeration value = "580"/>
+					<xs:enumeration value = "581"/>
+					<xs:enumeration value = "583"/>
+					<xs:enumeration value = "584"/>
+					<xs:enumeration value = "585"/>
+					<xs:enumeration value = "586"/>
+					<xs:enumeration value = "591"/>
+					<xs:enumeration value = "598"/>
+					<xs:enumeration value = "600"/>
+					<xs:enumeration value = "604"/>
+					<xs:enumeration value = "608"/>
+					<xs:enumeration value = "612"/>
+					<xs:enumeration value = "616"/>
+					<xs:enumeration value = "620"/>
+					<xs:enumeration value = "624"/>
+					<xs:enumeration value = "626"/>
+					<xs:enumeration value = "630"/>
+					<xs:enumeration value = "634"/>
+					<xs:enumeration value = "638"/>
+					<xs:enumeration value = "642"/>
+					<xs:enumeration value = "643"/>
+					<xs:enumeration value = "646"/>
+					<xs:enumeration value = "652"/>
+					<xs:enumeration value = "654"/>
+					<xs:enumeration value = "659"/>
+					<xs:enumeration value = "660"/>
+					<xs:enumeration value = "662"/>
+					<xs:enumeration value = "663"/>
+					<xs:enumeration value = "666"/>
+					<xs:enumeration value = "670"/>
+					<xs:enumeration value = "674"/>
+					<xs:enumeration value = "678"/>
+					<xs:enumeration value = "682"/>
+					<xs:enumeration value = "686"/>
+					<xs:enumeration value = "688"/>
+					<xs:enumeration value = "690"/>
+					<xs:enumeration value = "694"/>
+					<xs:enumeration value = "702"/>
+					<xs:enumeration value = "703"/>
+					<xs:enumeration value = "704"/>
+					<xs:enumeration value = "705"/>
+					<xs:enumeration value = "706"/>
+					<xs:enumeration value = "710"/>
+					<xs:enumeration value = "716"/>
+					<xs:enumeration value = "724"/>
+					<xs:enumeration value = "728"/>
+					<xs:enumeration value = "729"/>
+					<xs:enumeration value = "732"/>
+					<xs:enumeration value = "736"/>
+					<xs:enumeration value = "740"/>
+					<xs:enumeration value = "744"/>
+					<xs:enumeration value = "748"/>
+					<xs:enumeration value = "752"/>
+					<xs:enumeration value = "756"/>
+					<xs:enumeration value = "760"/>
+					<xs:enumeration value = "762"/>
+					<xs:enumeration value = "764"/>
+					<xs:enumeration value = "768"/>
+					<xs:enumeration value = "772"/>
+					<xs:enumeration value = "776"/>
+					<xs:enumeration value = "780"/>
+					<xs:enumeration value = "784"/>
+					<xs:enumeration value = "788"/>
+					<xs:enumeration value = "792"/>
+					<xs:enumeration value = "795"/>
+					<xs:enumeration value = "796"/>
+					<xs:enumeration value = "798"/>
+					<xs:enumeration value = "800"/>
+					<xs:enumeration value = "804"/>
+					<xs:enumeration value = "807"/>
+					<xs:enumeration value = "818"/>
+					<xs:enumeration value = "826"/>
+					<xs:enumeration value = "830"/>
+					<xs:enumeration value = "831"/>
+					<xs:enumeration value = "832"/>
+					<xs:enumeration value = "833"/>
+					<xs:enumeration value = "834"/>
+					<xs:enumeration value = "840"/>
+					<xs:enumeration value = "850"/>
+					<xs:enumeration value = "854"/>
+					<xs:enumeration value = "858"/>
+					<xs:enumeration value = "860"/>
+					<xs:enumeration value = "862"/>
+					<xs:enumeration value = "872"/>
+					<xs:enumeration value = "876"/>
+					<xs:enumeration value = "882"/>
+					<xs:enumeration value = "887"/>
+					<xs:enumeration value = "891"/>
+					<xs:enumeration value = "894"/>					
+				  </xs:restriction>
+			  </xs:simpleType>
+       </xs:union>
+  </xs:simpleType>
+  
+     <xs:simpleType name="OBJECT_CODE_TYPE">
+       <xs:restriction base = "xs:string">
+       </xs:restriction>
+    </xs:simpleType>
+	
+	 <xs:simpleType name="OBJECT_ADDRESS_TYPE">
+       <xs:restriction base = "xs:string">
+	   <xs:minLength value="1"></xs:minLength>
+       </xs:restriction>
+    </xs:simpleType>
+	
+	<xs:simpleType name="DESTINATION_DATE_TYPE">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(3[01]|[12][0-9]|0?[1-9]).(1[0-2]|0?[1-9]).[0-9]{4}" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

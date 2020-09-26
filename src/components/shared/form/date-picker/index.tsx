@@ -3,18 +3,20 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker, KeyboardDatePickerProps } 
 import DateFnsUtils from "@date-io/date-fns";
 import { useStyles } from "./data-picker.style";
 import clsx from "clsx";
-import { FormControlLabel } from "@material-ui/core";
+import { TextField } from "components/shared/form";
 
 interface IClasses {
-  root: string;
-  picker: string;
+  root?: string;
+  picker?: string;
+  helperText?: string;
 }
 
-interface IDatePicker {
+export interface IDatePicker {
   label?: string;
   className?: string;
   classes?: IClasses;
   errorText?: string;
+  helperText?: string;
 }
 
 export const DatePicker: FC<IDatePicker & KeyboardDatePickerProps> = ({
@@ -22,33 +24,30 @@ export const DatePicker: FC<IDatePicker & KeyboardDatePickerProps> = ({
   className,
   classes,
   errorText,
+  helperText,
   ...rest
 }) => {
   const styles = useStyles();
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <FormControlLabel
-        control={
-          <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="dd.MM.yyyy"
-            margin="normal"
-            //onChange={handleDateChange}
-            //labelFunc={formatDate}
-            autoOk={true}
-            className={clsx(styles.picker, classes?.picker)}
-            KeyboardButtonProps={{
-              "aria-label": "change date",
-            }}
-            {...rest}
-          />
-        }
-        label={label}
-        labelPlacement="top"
-        className={clsx(styles.label, className, classes?.root)}
-      />
+      <>
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="dd.MM.yyyy"
+          autoOk={true}
+          helperText=""
+          className={clsx(styles.picker, classes?.picker, helperText?.length && styles.errorBorder, className)}
+          KeyboardButtonProps={{
+            "aria-label": "change date",
+          }}
+          TextFieldComponent={(props) => <TextField label={label} {...props} variant="outlined" />}
+          {...rest}
+        />
+
+        {helperText && <div className={clsx(classes?.helperText, styles.heplerText)}>{helperText}</div>}
+      </>
     </MuiPickersUtilsProvider>
   );
 };

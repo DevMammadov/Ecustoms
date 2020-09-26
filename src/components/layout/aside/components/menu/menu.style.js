@@ -15,6 +15,8 @@ export const useStyles = makeStyles((theme) => {
       "& > li > ul": {
         position: "relative",
         padding: "0px 0 20px 0",
+        listStyle: "none",
+        margin: 0,
       },
       "& > ul > li > ul::after": {
         content: "''",
@@ -32,17 +34,21 @@ export const useStyles = makeStyles((theme) => {
       },
       "& > li > a": {
         color: "rgba(255, 255, 255, 0.6)",
-        fontSize: "15px",
+        fontSize: 15,
         textTransform: "capitalize",
         transition: "all .3s ease 0s",
-        padding: `${theme.spacing(0, 2.5, 2.5, 2.8)} !important`,
+        padding: `${theme.spacing(0, 2.5, 2.5, 2.8)}`,
       },
       "& > li > ul > li > a": {
         borderLeft: "2px solid transparent",
         opacity: ".6",
         padding: theme.spacing(1.5, 2.8),
         "& div": {
-          marginRight: "10px",
+          marginRight: 16,
+          width: 30,
+          color: theme.palette.color.white,
+          fontSize: 23,
+          marginTop: -4,
         },
       },
       "& > li > ul > li > a div": {
@@ -62,13 +68,9 @@ export const useStyles = makeStyles((theme) => {
         opacity: 1,
       },
     },
-    iconContaioner: {
-      width: "30px",
-    },
-    icon: {
-      color: theme.palette.color.white,
-      marginRight: theme.spacing(1.5),
-      fontSize: "19px",
+    hideLink: {
+      padding: `0 !important`,
+      visibility: "hidden",
     },
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},

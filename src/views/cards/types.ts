@@ -1,7 +1,8 @@
 export interface ICard {
   id: number;
   title: string;
-  name: string;
+  color: string;
+  description: string;
   auth: number;
   swapIcon: boolean;
   icon: string;

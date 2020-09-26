@@ -4,7 +4,7 @@ import { useStyles } from "./keylist.style";
 import { ISertificate } from "types";
 import clsx from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey, faSpinnerThird } from "@fortawesome/pro-light-svg-icons";
+import { faKey } from "@fortawesome/pro-light-svg-icons";
 import { useTranslator } from "localization";
 
 interface ISelectProps {
@@ -47,7 +47,7 @@ export const Keylist: FC<ISelectProps> = ({ onChange, className, sertificates, s
   const renderLeftIcon = () => {
     return (
       <div className={classes.selectIcon}>
-        <FontAwesomeIcon spin={loading} className={classes.keyIcon} icon={loading ? faSpinnerThird : faKey} />
+        <FontAwesomeIcon className={classes.keyIcon} icon={faKey} />
       </div>
     );
   };

@@ -16,10 +16,9 @@ export interface ICustomsWarehousesPage {
   getWarehouses(status: number): void;
   wareHouses: ICustomsWarehousesInfo[];
   loading: boolean;
-  localToken: string;
 }
 
-const CustomsWarehouses: FC<ICustomsWarehousesPage> = ({ getWarehouses, wareHouses, loading, localToken }) => {
+const CustomsWarehouses: FC<ICustomsWarehousesPage> = ({ getWarehouses, wareHouses, loading }) => {
   const lang = useTranslator("myInfo", ["alerts"]);
   const classes = useStyles();
   const { WarehouseDataColumns, modifyData } = useTableData();
@@ -27,8 +26,10 @@ const CustomsWarehouses: FC<ICustomsWarehousesPage> = ({ getWarehouses, wareHous
   const currentUser = useUser();
 
   useEffect(() => {
-    getWarehouses(3);
-  }, [getWarehouses, localToken]);
+    if (currentUser.voen) {
+      getWarehouses(3);
+    }
+  }, [getWarehouses, currentUser.localToken, currentUser.voen]);
 
   const handleChange = (e: any) => {
     getWarehouses(e.target.value);
@@ -67,7 +68,7 @@ const CustomsWarehouses: FC<ICustomsWarehousesPage> = ({ getWarehouses, wareHous
       icon={faInfoCircle}
       classes={{ icon: classes.alertIcon, root: classes.alertContainer }}
       color="primary"
-      title={lang.permissionalert}
+      title={lang.voenRequired}
     />
   );
 };
@@ -75,6 +76,5 @@ const CustomsWarehouses: FC<ICustomsWarehousesPage> = ({ getWarehouses, wareHous
 const mapStateToProps = (state: IAppState) => ({
   wareHouses: state.myInfo.wareHouses,
   loading: state.myInfo.loading,
-  localToken: state.user.localToken,
 });
 export default connect(mapStateToProps, MyinfoActions)(CustomsWarehouses);

@@ -22,5 +22,8 @@ export const useStyles = makeStyles((theme) => {
         transform: "translate(-50%,-50%)",
       },
     },
+    user: {
+      marginLeft: 3,
+    },
   };
 });

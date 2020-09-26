@@ -4,7 +4,7 @@ import { TextField } from "components/shared";
 
 export interface IKeys {
   name: string;
-  title: string;
+  title?: string;
 }
 
 interface IList {

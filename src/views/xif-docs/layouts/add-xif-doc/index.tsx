@@ -1,44 +1,41 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { useStyles } from "./add-xif-doc.style";
-import { Button, Radio } from "components/shared/form";
 import { useTranslator } from "localization";
 import { connect } from "react-redux";
 import { IAppState } from "store/reducers";
-import { IAddXifDocPage } from "../../types";
+import { IAddXifDocPage, IAddDocRequest } from "../../types";
 import { XifDocsActions } from "../../store/action";
 import { Grid, Paper } from "@material-ui/core";
 import { useUser } from "hooks";
-import { InputContainer } from "../../components";
-import { faPaperclip } from "@fortawesome/pro-light-svg-icons";
-import { renderInput } from "../../form-enum";
-import { Field, reduxForm, change, formValueSelector, resetSection, FormSection } from "redux-form";
-import { TextField, DatePicker, RadioGroup, FileUploader, Select } from "components/shared/redux-form";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { required, onlyPdf, fileRequired, size4mb } from "helpers/form-validators";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faMapMarker, faKey } from "@fortawesome/pro-light-svg-icons";
 import { useParams } from "react-router-dom";
-import { links } from "routes/links";
+import { SectionHeader } from "components/shared";
+import AddUpdateForm from "./add-update-form";
+import { FormHeader } from "views/xif-docs/components";
+import { checkFile } from "views/xif-docs/helpers";
+import { toFormData } from "helpers";
+import { stopSubmit } from "redux-form";
+import moment from "moment";
 
 const AddXifDoc: FC<IAddXifDocPage & any> = ({
-  xifDocs,
+  xifDocState,
   getXifDocTypes,
-  handleSubmit,
-  docType,
-  contractNo,
   getCompanyInfo,
   getCurrency,
-  initialValues,
   getDoc,
   clearDoc,
-  submitting,
+  sendXifDocs,
+  updateDoc,
 }) => {
   const classes = useStyles();
   const lang = useTranslator("xifDocs", ["alerts"]);
-  const dispatch = useDispatch();
   const currentUser = useUser();
   const params: any = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getCompanyInfo();
+  }, [getCompanyInfo]);
 
   useEffect(() => {
     if (params.page === "update" && params.id) {
@@ -46,7 +43,7 @@ const AddXifDoc: FC<IAddXifDocPage & any> = ({
     }
     getXifDocTypes();
     getCurrency();
-  }, [getXifDocTypes, currentUser.lang, getCurrency]);
+  }, [getXifDocTypes, currentUser.lang, getCurrency, getDoc, params.id, params.page]);
 
   useEffect(() => {
     return () => {
@@ -54,163 +51,52 @@ const AddXifDoc: FC<IAddXifDocPage & any> = ({
     };
   }, [clearDoc]);
 
-  useEffect(() => {
-    getCompanyInfo();
-  }, [currentUser.localToken, getCompanyInfo]);
+  const handleDocFormSubmit = (data: any) => {
+    const response: IAddDocRequest = {
+      firmName: xifDocState.companyInfo?.companyName,
+      address: xifDocState.companyInfo?.companyAddress,
+      docType: data.docType,
+      hasContractNo: data.formSection.hasContractNo,
+      contractNo: data.formSection.contractNo,
+      contractDate: moment(data.formSection.contractDate).format("DD.MM.YYYY"),
+      validityDate: moment(data.formSection.validityDate).format("DD.MM.YYYY"),
+      invoice: data.formSection.invoice,
+      currencyType: String(data.formSection.currencyType),
+      receiverVoen: data.formSection.receiverVoen,
+      receiverName: data.formSection.receiverName,
+      senderVoen: data.formSection.senderVoen,
+      senderName: data.formSection.senderName,
+      note: data.formSection.note,
+      doc: checkFile(data.formSection.doc, !!data.id),
+    };
 
-  const history = useHistory();
-
-  const handleHasContractNoChange = (e: any) => {
-    if (e.target.value === "false") {
-      dispatch(change("addXifDocForm", "formSection.contractNo", "N-SIZ"));
+    if (!data.id) {
+      if (data.formSection.doc && data.formSection.doc[0]?.name) {
+        sendXifDocs(toFormData(response));
+      } else {
+        dispatch(stopSubmit("addXifDocForm", { formSection: { doc: lang.required } }));
+      }
     } else {
-      dispatch(change("addXifDocForm", "formSection.contractNo", ""));
+      updateDoc({ data: toFormData(response), id: data.id, pinCode: data.pinCode });
     }
   };
 
   return (
-    <Grid container justify="center">
+    <Grid container justify="center" style={{ opacity: xifDocState?.loading ? 0.5 : 1 }}>
+      <SectionHeader title={lang.xifDocs} />
       <Grid item xs={12} className={classes.formHeader} component={Paper}>
-        <div>
-          <FontAwesomeIcon className={classes.headerIcon} icon={faKey} />
-          <span>{xifDocs?.companyInfo?.voen}</span>
-        </div>
-        <div>
-          <FontAwesomeIcon className={classes.headerIcon} icon={faUser} />
-          <span>{xifDocs?.companyInfo?.companyName}</span>
-        </div>
-        <div>
-          <FontAwesomeIcon className={classes.headerIcon} icon={faMapMarker} />
-          <span>{xifDocs?.companyInfo?.companyAddress}</span>
-        </div>
+        <FormHeader
+          voen={xifDocState.companyInfo?.voen}
+          company={xifDocState.companyInfo?.companyName}
+          address={xifDocState.companyInfo?.companyAddress}
+        />
       </Grid>
       <Grid item xs={12} component={Paper} className={classes.formContainer}>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <Field
-            component={Select}
-            name="docType"
-            data={xifDocs?.xifDocTypes?.map((doc: any) => ({ id: doc?.idn, value: doc?.name })) || []}
-            selected={xifDocs?.xifDocTypes ? xifDocs.xifDocTypes[0]?.idn : ""}
-            label={lang.docType}
-            onChange={() => dispatch(resetSection("addXifDocForm", "formSection"))}
-          />
-          <Field component="input" type="hidden" name="id" />
-          <FormSection name="formSection">
-            <InputContainer visible={renderInput(docType, 0)}>
-              <Field component={RadioGroup} name="hasContractNo" onChange={handleHasContractNoChange} row>
-                <Radio value="true" label={lang.hasContractNo} color="primary" />
-                <Radio value="false" label={lang.notHasContractNo} color="primary" />
-              </Field>
-            </InputContainer>
-
-            <InputContainer visible={renderInput(docType, 1)}>
-              <Field
-                component={TextField}
-                name="contractNo"
-                disabled={contractNo === "N-SIZ"}
-                label={lang.contractNo}
-                validate={required}
-              />
-            </InputContainer>
-            <div className={classes.dateGroup}>
-              <InputContainer visible={renderInput(docType, 2)}>
-                <Field component={DatePicker} name="contractDate" label={lang.contractDate} className={classes.input} />
-              </InputContainer>
-              <InputContainer visible={renderInput(docType, 3)}>
-                <Field component={DatePicker} name="validityDate" label={lang.validityDate} />
-              </InputContainer>
-            </div>
-            <InputContainer className={classes.inputGroup} visible={renderInput(docType, 8)}>
-              <Field component={TextField} name="invoys" type="number" label={lang.invoice} />
-              <Field
-                component={Select}
-                name="currency"
-                data={xifDocs?.currency?.map((curr: any) => ({ id: curr?.codeN, value: curr?.name })) || []}
-                selected={xifDocs?.currency ? xifDocs.currency[0]?.codeN : ""}
-                label={lang.currency}
-              />
-            </InputContainer>
-
-            <InputContainer visible={renderInput(docType, 4)}>
-              <Field component={TextField} name="recieverVoen" label={lang.recieverVoen} />
-            </InputContainer>
-
-            <InputContainer visible={renderInput(docType, 5)}>
-              <Field component={TextField} name="recieverName" label={lang.recieverName} />
-            </InputContainer>
-
-            <InputContainer visible={renderInput(docType, 6)}>
-              <Field component={TextField} name="senderVoen" label={lang.senderVoen} />
-            </InputContainer>
-
-            <InputContainer visible={renderInput(docType, 7)}>
-              <Field component={TextField} name="senderName" label={lang.senderName} />
-            </InputContainer>
-
-            <InputContainer visible={true}>
-              <Field component={TextField} name="note" multiline rows={5} label={lang.note} />
-            </InputContainer>
-            <div className={classes.formFooter}>
-              <InputContainer visible={true}>
-                {params.page === "update" ? (
-                  <Field
-                    component={FileUploader}
-                    accept="application/pdf"
-                    icon={faPaperclip}
-                    label={initialValues?.formSection?.doc}
-                    name="doc"
-                    validate={[onlyPdf, size4mb]}
-                  />
-                ) : (
-                  <Field
-                    component={FileUploader}
-                    accept="application/pdf"
-                    icon={faPaperclip}
-                    label={lang.addFile}
-                    name="doc"
-                    validate={[onlyPdf, fileRequired, size4mb]}
-                  />
-                )}
-              </InputContainer>
-              <div className={classes.buttonGroup}>
-                <Button onClick={() => history.push(links.XifDoc.baseUrl)}>{lang.deny}</Button>
-                <Button type="submit" variant="contained" color="primary" disabled={submitting}>
-                  {lang.send}
-                </Button>
-              </div>
-            </div>
-          </FormSection>
-        </form>
+        <AddUpdateForm onSubmit={handleDocFormSubmit} />
       </Grid>
     </Grid>
   );
 };
 
-const formValues = formValueSelector("addXifDocForm");
-
-const initialValues = {
-  docType: 1,
-  formSection: {
-    hasContractNo: "true",
-    contractNo: "",
-    contractDate: null,
-    validityDate: null,
-    currency: 932,
-  },
-};
-
-const mapStateToProps = (state: IAppState) => ({
-  xifDocs: state.xifDocs,
-  contractNo: formValues(state, "formSection.contractNo"),
-  docType: formValues(state, "docType"),
-  initialValues: state.xifDocs.docToUpdate.id ? state.xifDocs.docToUpdate : (undefined as any),
-});
-
-export default connect(
-  mapStateToProps,
-  XifDocsActions
-)(
-  reduxForm({ form: "addXifDocForm", initialValues, enableReinitialize: true, keepDirtyOnReinitialize: true })(
-    AddXifDoc
-  )
-);
+const mapStateToProps = (state: IAppState) => ({ xifDocState: state.xifDocs });
+export default connect(mapStateToProps, XifDocsActions)(AddXifDoc);

@@ -1,15 +1,15 @@
 import { handleActions } from "redux-actions";
-import { IXifDoc, ICompanyInfo, ICurrency, IDocToUpdate } from "../types";
+import { IXifDoc, ICompanyInfo, ICurrency, IDocToUpdate, IXifFilter } from "../types";
 import {
   getXifDocsAsync,
   getXifDocTypesAsync,
-  sendFilterFormAsync,
-  toogleFiltering,
   getCompanyInfoAsync,
   getCurrencyAsync,
   getFileAsync,
   getDocAsync,
   clearDoc,
+  searchXifDocAsync,
+  toggleFilter,
 } from "./action";
 import { ISelectItems } from "types";
 
@@ -20,7 +20,7 @@ export interface IXifDocsState {
   companyInfo: ICompanyInfo;
   currency: ICurrency[];
   file: any;
-  isFiltered: boolean;
+  filter: IXifFilter;
   loading: boolean;
 }
 
@@ -30,8 +30,11 @@ const initialState: IXifDocsState = {
   xifDocTypes: [],
   currency: [],
   companyInfo: {} as any,
+  filter: {
+    isFiltered: false,
+    form: {} as any,
+  },
   file: null,
-  isFiltered: false,
   loading: false,
 };
 
@@ -44,6 +47,13 @@ export default handleActions(
       xifDocs: action.payload.data as any,
       loading: false,
     }),
+    [searchXifDocAsync.started]: (state) => ({ ...state, loading: true }),
+    [searchXifDocAsync.failed]: (state) => ({ ...state, loading: false, xifDocs: [] }),
+    [searchXifDocAsync.success]: (state, action: any) => ({
+      ...state,
+      xifDocs: action.payload.data as any,
+      loading: false,
+    }),
     [getDocAsync.started]: (state) => ({ ...state, loading: true }),
     [getDocAsync.failed]: (state) => ({ ...state, doc: {} as any, loading: false }),
     [getDocAsync.success]: (state, action: any) => ({
@@ -51,6 +61,7 @@ export default handleActions(
       docToUpdate: {
         ...state.docToUpdate,
         id: action.payload.data.id,
+        pinCode: action.payload.data.pinCode,
         docType: action.payload.data.docType,
         formSection: action.payload.data as any,
       },
@@ -61,13 +72,6 @@ export default handleActions(
     [getXifDocTypesAsync.success]: (state, action: any) => ({
       ...state,
       xifDocTypes: action.payload.data as any,
-      loading: false,
-    }),
-    [sendFilterFormAsync.started]: (state) => ({ ...state, loading: true }),
-    [sendFilterFormAsync.failed]: (state) => ({ ...state, xifDocs: [], loading: false }),
-    [sendFilterFormAsync.success]: (state, action: any) => ({
-      ...state,
-      xifDocs: action.payload.data as any,
       loading: false,
     }),
     [getCompanyInfoAsync.started]: (state) => ({ ...state, loading: true }),
@@ -91,8 +95,8 @@ export default handleActions(
       file: action.payload.data,
       loading: false,
     }),
-    [toogleFiltering]: (state, action: any) => ({ ...state, isFiltered: action.payload }),
     [clearDoc]: (state, action: any) => ({ ...state, docToUpdate: {} as any }),
+    [toggleFilter]: (state, action: any) => ({ ...state, filter: action.payload }),
   },
   initialState
 );

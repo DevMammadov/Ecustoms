@@ -1,12 +1,9 @@
 import { Spinner } from "components/shared";
-import { createBrowserHistory } from "history";
 import React, { Suspense } from "react";
 import { Router } from "react-router-dom";
 import Routes from "./routes";
 
-const Route = () => {
-  const history = createBrowserHistory();
-
+const Route = ({ history }: any) => {
   return (
     <Router history={history}>
       <Suspense fallback={<Spinner />}>

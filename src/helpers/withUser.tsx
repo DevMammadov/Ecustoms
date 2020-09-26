@@ -14,27 +14,13 @@ export interface IUserSession {
 
 export const withUser = (WrappedComponent: FC<any>) => {
   return (props: any) => {
-    const userState = useSelector((state: IAppState) => state.user);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-      if (userState.asanToken) {
-        dispatch(checkToken(userState.asanToken));
-      }
-    }, [userState.tokenExpired, userState.asanToken, dispatch]);
-
-    const dLocalRoken: ILocalTokenDecoded = userState.localToken
-      ? (decode(userState.localToken) as ILocalTokenDecoded)
-      : ({} as any);
-
-    console.log("currentUser");
-
-    let currentUser: IUserSession = {
-      fullName: dLocalRoken.asa,
-      hasStamp: Number(dLocalRoken.hasStamp) === 1,
-      voen: dLocalRoken.voen,
-      isLogin: !!userState.asanToken && !userState.tokenExpired && !!userState.localToken,
-    };
+    // let currentUser: IUserSession = {
+    //   fullName: dLocalRoken.asa,
+    //   hasStamp: Number(dLocalRoken.hasStamp) === 1,
+    //   voen: dLocalRoken.voen,
+    //   isLogin: !!userState.asanToken && !userState.tokenExpired && !!userState.localToken,
+    // };
+    let currentUser = null;
 
     //@ts-ignore
     return <WrappedComponent currentUser={currentUser} {...props} />;

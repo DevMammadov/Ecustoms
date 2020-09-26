@@ -1,15 +1,25 @@
 export const translator = (
-  lang: "az" | "en" | "ru",
-  page: "myInfo" | "login" | "cards" | "givingPermission" | "header" | "alerts" | "xifDocs" | "formAlerts" | "main",
+  lang: 'az' | 'en' | 'ru',
+  page:
+    | 'myInfo'
+    | 'login'
+    | 'cards'
+    | 'givingPermission'
+    | 'header'
+    | 'alerts'
+    | 'xifDocs'
+    | 'formAlerts'
+    | 'main'
+    | 'gooen',
   other?: string[]
 ) => {
   const langObj = require(`./lang/${lang}.json`);
 
   const _getPageLang = (page?: string) => {
-    if (page && page.toLowerCase() === "main") {
-      return langObj["main"];
-    } else if (page && page.toLowerCase() !== "main" && Object.keys(langObj).includes(page)) {
-      return { ...langObj["main"], ...langObj[page as keyof typeof langObj] };
+    if (page && page.toLowerCase() === 'main') {
+      return langObj['main'];
+    } else if (page && page.toLowerCase() !== 'main' && Object.keys(langObj).includes(page)) {
+      return { ...langObj['main'], ...langObj[page as keyof typeof langObj] };
     } else {
       let allLangs = {};
       Object.keys(langObj).map((key: string) => (allLangs = { ...allLangs, ...langObj[key] }));

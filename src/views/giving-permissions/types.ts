@@ -16,7 +16,6 @@ export interface IGivingPermissionPage {
 export interface IManagePage {
   permissions: IPermissionsState;
   showSearchBar?: boolean;
-  localToken: string;
   getWorkerSert(pin: string): void;
   setSearchPin(pin: string): void;
   setSertNumber(sert: string): void;

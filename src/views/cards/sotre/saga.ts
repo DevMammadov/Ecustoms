@@ -1,11 +1,25 @@
 import cardApi from "api/cards.api";
 import { bindAsyncActions } from "helpers";
-import { takeEvery } from "redux-saga/effects";
-import { cardActions } from "./action";
+import { put, takeEvery } from "redux-saga/effects";
+import { CardActions } from "./action";
 
 export function* cardsSaga() {
+  yield takeEvery(CardActions.getCards, bindAsyncActions(CardActions.getCardsAsync)(cardApi.getCards));
+
   yield takeEvery(
-    cardActions.getCards,
-    bindAsyncActions(cardActions.getCardsAsync)(cardApi.getCards)
+    CardActions.getFavoriteCards,
+    bindAsyncActions(CardActions.getFavoriteCardsAsync)(cardApi.getFavoriteCards)
   );
+
+  yield takeEvery(
+    CardActions.setFavoriteCard,
+    bindAsyncActions(CardActions.setFavoriteCardAsync)(cardApi.setFavoriteCard)
+  );
+  yield takeEvery(CardActions.setFavoriteCardAsync.success, handleFavoriteCardSuccess);
+}
+
+function* handleFavoriteCardSuccess({ payload }: any) {
+  payload.parentCardType === "favoriteCards"
+    ? yield put(CardActions.getFavoriteCards())
+    : yield put(CardActions.getCards(payload.parentCardType));
 }

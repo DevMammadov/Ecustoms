@@ -1,49 +1,74 @@
 import { decode } from "jsonwebtoken";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { IAppState } from "store/reducers";
-import { ILocalTokenDecoded } from "types";
+import { ILocalTokenDecoded, ISertificate } from "types";
 import { checkToken } from "views/login/store/action";
+import { getStorage, emptyStorage } from "helpers/storage";
+import { useHistory } from "react-router";
 
 export interface ICurrentUser {
-  fullName: string;
+  name: string;
+  surname: string;
+  fatherName: string;
   voen: string;
   isLogin: boolean;
   hasStamp: boolean;
   loginType: string;
+  birthDate: string;
+  citizenship: string;
   localToken: string;
   lang: string;
   pageLoading: boolean;
+  sertificates: ISertificate[];
+  selectedSertificate: ISertificate | null;
+  asanToken: string;
+  pin: string;
+  checkLogin(): void;
+  logout(): void;
 }
 
-export const useUser = (check?: boolean) => {
+export const useUser = () => {
+  const storage = getStorage();
+  const history = useHistory();
+
   const userState = useSelector((state: IAppState) => state.user);
-  const currentLang = useSelector((state: IAppState) => state.header.lang);
+  const currentLang = useSelector((state: IAppState) => state.header.lang) || localStorage.getItem("lang") || "az";
+  const asanToken = storage?.asa || "";
+  const localToken = storage?.lcl || "";
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (userState.asanToken) {
-      dispatch(checkToken(userState.asanToken));
-    }
-  }, [userState.localToken, dispatch, userState.asanToken]);
-
-  const localToken = () => {
-    return userState.localToken ? (decode(userState.localToken) as ILocalTokenDecoded) : ({} as any);
+  const localTokenDecoded = () => {
+    return localToken ? (decode(localToken) as ILocalTokenDecoded) : ({} as any);
   };
 
-  const asanToken = () => {
-    return userState.asanToken ? (decode(userState.asanToken) as any) : ({} as any);
+  const asanTokenDecoded = () => {
+    return asanToken ? (decode(asanToken) as any) : ({} as any);
   };
 
   let currentUser: ICurrentUser = {
-    fullName: localToken().asa,
-    hasStamp: Number(localToken().hasStamp) === 1,
-    voen: localToken().voen,
-    isLogin: !!userState.asanToken && !userState.tokenExpired && !!userState.localToken,
-    loginType: asanToken().main?.loginType,
-    localToken: userState.localToken,
+    name: localTokenDecoded().person?.name,
+    surname: localTokenDecoded().person?.surname,
+    fatherName: localTokenDecoded().person?.fatherName,
+    birthDate: localTokenDecoded().person?.birthDate,
+    hasStamp: localTokenDecoded().person?.hasStamp,
+    voen: localTokenDecoded().person?.voen,
+    isLogin: !!asanToken && !userState.tokenExpired && !!localToken,
+    loginType: asanTokenDecoded().main?.loginType,
+    citizenship: localTokenDecoded().person?.citizenship,
+    sertificates: storage?.serts || [],
+    selectedSertificate: storage?.selectedSert || null,
     lang: currentLang,
     pageLoading: userState.pageLoading,
+    pin: localTokenDecoded().person?.pin,
+    localToken,
+    asanToken,
+    checkLogin: () => {
+      dispatch(checkToken(asanToken));
+    },
+    logout: () => {
+      emptyStorage();
+      history.push("/login");
+    },
   };
 
   return currentUser;

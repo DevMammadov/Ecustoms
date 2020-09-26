@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button } from "@material-ui/core";
+import { Button } from "components/shared/form";
 import { useStyles } from "../../tabs/sms-info/sms-info.style";
 import { TextField } from "components/shared/form";
 import { useForm } from "react-hook-form";
@@ -12,13 +12,14 @@ export interface ICollapseForm {
   title: string;
   onSubmit(data: string): void;
   visible: boolean;
-  buttonLabel: string | JSX.Element;
   placeholder?: string;
   fieldType?: "number" | "email" | "code";
   disabled?: boolean;
   inputType?: string;
   inputValue?: string | null;
   numberArrows: boolean;
+  buttonLabel: string;
+  buttonID?: number | string;
 }
 
 export const InputButton: FC<ICollapseForm> = ({
@@ -27,10 +28,11 @@ export const InputButton: FC<ICollapseForm> = ({
   visible,
   placeholder,
   fieldType,
-  buttonLabel,
   inputValue = "",
   numberArrows = true,
   disabled = false,
+  buttonLabel,
+  buttonID,
 }) => {
   const { register, handleSubmit } = useForm<FormData>({ defaultValues: { text: inputValue as string } });
   const classes = useStyles();
@@ -58,7 +60,15 @@ export const InputButton: FC<ICollapseForm> = ({
           name="text"
           inputRef={register}
         />
-        <Button variant="contained" type="submit" disabled={disabled} color="primary" className={classes.sendButton}>
+        <Button
+          id={buttonID as string}
+          disableTime={10000}
+          variant="contained"
+          type="submit"
+          disabled={disabled}
+          color="primary"
+          className={classes.sendButton}
+        >
           {buttonLabel}
         </Button>
       </form>

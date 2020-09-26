@@ -1,6 +1,9 @@
 export interface IColumn {
   name: string;
-  title: string;
+  field: string;
+  title?: string;
+  width?: number;
+  render?(rowData: any): void;
 }
 
 interface IClasses {
@@ -17,4 +20,11 @@ export interface ITableProps {
   columns: IColumn[];
   classes?: IClasses;
   className?: string;
+  showHeader?: boolean;
+  shadow?: boolean;
+  loading?: boolean;
+  paginate?: boolean;
+  limit?: number;
+  page?: number;
+  onPageChange?(page: number): void;
 }

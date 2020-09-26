@@ -16,7 +16,15 @@ export const maxLength = (max: number) => (value: any) =>
 export const minLength = (min: number) => (value: any) =>
   value && value.length < min ? `${getLang().minLength} - ${min}` : undefined;
 
+export const length10 = (value: any) => (value && value.length !== 10 ? `${getLang().length} - 10` : undefined);
+export const length7 = (value: any) => (value && value.length !== 7 ? `${getLang().length} - 7` : undefined);
+export const length4 = (value: any) => (value && value.length !== 4 ? `${getLang().length} - 4` : undefined);
+export const minLength7 = (value: any) => (value && value.length < 7 ? `${getLang().minLength} - 7` : undefined);
+
 export const onlyNumber = (value: any) => (value && isNaN(Number(value)) ? getLang().onlyNumber : undefined);
+
+export const minNumber0 = (value: any) =>
+  value && isNaN(Number(value)) && value <= 0 ? undefined : getLang().minNumber;
 
 export const email = (value: any) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? getLang().invalidEmail : undefined;
@@ -44,4 +52,9 @@ export const formValidators = {
   onlyPdf,
   fileRequired,
   size4mb,
+  length10,
+  length4,
+  length7,
+  minLength7,
+  minNumber0,
 };

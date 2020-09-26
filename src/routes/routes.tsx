@@ -1,4 +1,4 @@
-import React, { lazy, FC } from "react";
+import React, { lazy, FC, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import App from "views/layout";
 import { IAppState } from "store/reducers";
@@ -7,22 +7,15 @@ import { defaultRequest } from "helpers";
 import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import * as Theme from "theme";
 import { IHeaderStore } from "components/layout/header/store/header.reducer";
-import { IUserState } from "views/login/store/reducer";
+import { useUser } from "hooks";
 
 interface IRoutes {
-  user: IUserState;
   header: IHeaderStore;
 }
 
-const Routes: FC<IRoutes> = ({ header, user }) => {
+const Routes: FC<IRoutes> = ({ header }) => {
   const Login = lazy(() => import("views").then((module) => ({ default: module.Login })));
-  const Asan = lazy(() => import("views").then((module) => ({ default: module.Asan })));
-
-  if (!defaultRequest.defaults.headers["localToken"]) {
-    defaultRequest.defaults.headers["localToken"] = user.localToken;
-  }
-
-  defaultRequest.defaults.headers["lang"] = header.lang;
+  const Asan = lazy(() => import("views/login/asan").then((module) => ({ default: module.Asan })));
 
   return (
     <ThemeProvider theme={Theme[header.theme as keyof typeof Theme]}>
@@ -36,5 +29,5 @@ const Routes: FC<IRoutes> = ({ header, user }) => {
   );
 };
 
-const mapstatetoProps = (state: IAppState) => ({ user: state.user, header: state.header });
+const mapstatetoProps = (state: IAppState) => ({ header: state.header });
 export default connect(mapstatetoProps)(Routes);

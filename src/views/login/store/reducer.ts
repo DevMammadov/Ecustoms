@@ -1,75 +1,54 @@
 import { handleActions } from "redux-actions";
-import { getUserAsync, getCertificatesAsync, sendTokenAsync, checkTokenAsync, setSertificate } from "./action";
-import { ISertificate } from "types";
+import {
+  getUserPhotoAsync,
+  sendTokenAsync,
+  checkTokenAsync,
+  loginWithPasswordAsync,
+  getCertificatesAsync,
+} from "./action";
 
 export interface IUserState {
   name: string;
   fin: string;
-  asanToken: string;
-  localToken: string;
-  refreshToken: string;
-  sertificates: ISertificate[];
+  photo: string;
   tokenExpired: boolean;
-  selectedSertificate: ISertificate | null;
   pageLoading: boolean;
 }
 
 const initialState: IUserState = {
-  asanToken: "",
   fin: "",
-  localToken: "",
+  photo: "",
   name: "",
-  refreshToken: "",
-  sertificates: [],
-  selectedSertificate: null,
   tokenExpired: true,
   pageLoading: false,
 };
 
 export default handleActions(
   {
-    [getUserAsync.success]: (state, action: any) => ({
+    [getUserPhotoAsync.success]: (state, action: any) => ({
       ...state,
-      asanToken: action.payload.data.data.token as any,
-    }),
-    [getCertificatesAsync.success]: (state, action: any) => ({
-      ...state,
-      sertificates: action.payload.data.data.availableCertificates as any,
+      photo: action.payload.data,
     }),
     [sendTokenAsync.started]: (state) => ({ ...state, pageLoading: true }),
     [sendTokenAsync.failed]: (state) => ({ ...state, pageLoading: false }),
-    [sendTokenAsync.success]: (state, action: any) => ({
-      ...state,
-      localToken: action.payload.data.data.token as any,
-      pageLoading: false,
-    }),
+    [sendTokenAsync.success]: (state) => ({ ...state, pageLoading: false }),
+    [loginWithPasswordAsync.started]: (state) => ({ ...state, pageLoading: true }),
+    [loginWithPasswordAsync.failed]: (state) => ({ ...state, pageLoading: false }),
+    [loginWithPasswordAsync.success]: (state) => ({ ...state, pageLoading: false }),
+    [getCertificatesAsync.started]: (state) => ({ ...state, pageLoading: true }),
+    [getCertificatesAsync.failed]: (state) => ({ ...state, pageLoading: false }),
+    [getCertificatesAsync.success]: (state) => ({ ...state, pageLoading: false }),
     [checkTokenAsync.started]: (state) => ({ ...state, pageLoading: true }),
-    [checkTokenAsync.failed]: (state, action: any) => {
-      let tokenExpired = action.payload.response?.status === 401 ? true : false;
-      return {
-        ...state,
-        tokenExpired: tokenExpired,
-        selectedSertificate: tokenExpired ? null : state.selectedSertificate,
-        asanToken: tokenExpired ? "" : state.asanToken,
-        sertificates: tokenExpired ? [] : state.sertificates,
-        localToken: tokenExpired ? "" : state.localToken,
-        pageLoading: false,
-      };
-    },
-    [checkTokenAsync.success]: (state, action: any) => ({
+    [checkTokenAsync.failed]: (state, action: any) => ({
       ...state,
-      tokenExpired: !action.payload,
-      localToken: !action.payload ? "" : state.localToken,
-      asanToken: !action.payload ? "" : state.asanToken,
-      selectedSertificate: !action.payload ? null : state.selectedSertificate,
+      tokenExpired: action.payload?.response?.status === 401,
       pageLoading: false,
     }),
-    [setSertificate]: (state, action: any) => {
-      return {
-        ...state,
-        selectedSertificate: state.sertificates.filter((s: ISertificate) => s.certificateNumber === action.payload)[0],
-      } as any;
-    },
+    [checkTokenAsync.success]: (state) => ({
+      ...state,
+      tokenExpired: false,
+      pageLoading: false,
+    }),
   },
   initialState
 );

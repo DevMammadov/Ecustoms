@@ -1,21 +1,13 @@
-@font-face {
-  font-family: "Monserrat_Light";
-  src: url("fonts/monserrat/Montserrat-Light.otf");
+@import "theme/fonts/css/mulish.css";
+@import "theme/fonts/css/jis.css";
+
+html,
+body {
+  height: 100%;
 }
 
-@font-face {
-  font-family: "samsung";
-  src: url("fonts/samsung/samsungsharpsans.otf");
-}
-
-@font-face {
-  font-family: "proxima";
-  src: url("fonts/proxima/ProximaNova-Light.otf");
-}
-
-@font-face {
-  font-family: "muli-variable";
-  src: url("theme/fonts/Muli/Muli-VariableFont_wght.ttf");
+#root {
+  height: 100%;
 }
 
 body {
@@ -23,7 +15,7 @@ body {
   padding: 0;
   font-weight: 300;
   font-size: 1rem !important;
-  font-family: "muli-variable", serif !important;
+  font-family: "Mulish", serif !important;
 }
 
 a {
@@ -39,12 +31,17 @@ h5,
 h6,
 td,
 th,
+p,
 div {
-  font-family: "muli-variable", serif !important;
+  font-family: "Mulish", serif !important;
 }
 
 span.material-icons {
   font-family: "Material Icons" !important;
+}
+
+*:focus {
+  outline: none;
 }
 
 body * {

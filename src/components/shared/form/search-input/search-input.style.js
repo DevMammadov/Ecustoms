@@ -6,8 +6,6 @@ export const useStyles = makeStyles((theme) => {
       margin: theme.spacing(1, 0, 0.5, 0),
     },
     search: {
-      border: `1px solid ${theme.palette.color.gray}`,
-      borderRadius: theme.spacing(1),
       position: "relative",
       width: "100%",
       display: "flex",

@@ -1,11 +1,11 @@
-import { Grid, Switch, Button, withWidth, isWidthUp, IconButton } from "@material-ui/core";
+import { Grid, Switch, withWidth, isWidthUp, IconButton } from "@material-ui/core";
 import { DataTable, Column } from "components/shared/data-table";
 import React, { FC, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { IWorker } from "../types";
 import { useStyles } from "../giving-permissions.style";
 import { IWorkerListPage } from "../types";
-import { Popup } from "components/shared";
+import { Popup, Button } from "components/shared";
 import { MobileAddButton } from "../components/mobile-add-button";
 import { connect } from "react-redux";
 import { IAppState } from "store/reducers";
@@ -108,7 +108,7 @@ const WorkerList: FC<IWorkerListPage> = ({
   };
 
   return (
-    <Grid item xs={12} style={{ marginBottom: "80px" }} className={classes.workersTableContainer}>
+    <Grid item xs={12} style={{ marginBottom: "80px" }}>
       <DataTable
         columns={columns}
         data={workers}
@@ -123,8 +123,8 @@ const WorkerList: FC<IWorkerListPage> = ({
             onClick={handleRedirectClick}
             type="submit"
             color="primary"
+            icon={faUser}
           >
-            <FontAwesomeIcon icon={faUser} className={classes.titleButtonIcon} />
             {lang.addNewPermission}
           </Button>
         }

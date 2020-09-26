@@ -2,124 +2,76 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles((theme) => {
   return {
-    headerTitle: {
-      fontSize: "0.9rem",
-      color: theme.palette.custom.textPrimary,
-    },
-    headerAction: {
-      position: "absolute",
-      top: 0,
-      right: 0,
-      "& .MuiIconButton-root": {
-        padding: theme.spacing(1, 2.5),
-        "& .MuiIconButton-label": {
-          fontSize: "30px",
-          color: theme.palette.custom.textPrimary,
-        },
-      },
-    },
-    cardHeader: {
+    container: {
       position: "relative",
-      padding: 0,
-      height: "35px",
-      borderBottom: `1px solid ${theme.palette.custom.borderColor}`,
-      marginBottom: theme.spacing(2),
-      overflow: "hidden",
-    },
-    menuItemContainer: {
       display: "flex",
-      "& .MuiListItem-gutters": {
-        padding: theme.spacing(1.2),
-        fontSize: "1rem",
-      },
+      borderRadius: 8,
+      height: 150,
+      padding: theme.spacing(1, 2, 0, 1),
     },
-    listContainer: {
+    cardMedia: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    avatar: {
+      fontSize: 30,
+      padding: theme.spacing(3),
+      cursor: "pointer",
+      color: theme.palette.primary.main,
+      background: "rgba(183, 183, 183, 0.1)",
+      marginRight: theme.spacing(1),
+    },
+    content: {
       padding: 0,
-      "& .MuiMenuItem-root": {
-        width: "100%",
-        justifyContent: "flex-start",
-        "& .MuiListItemIcon-root": {
-          minWidth: theme.spacing(3.2),
-        },
-      },
-    },
-    listIcon: {
-      color: theme.palette.custom.textPrimary,
-    },
-    cardContainer: {
       position: "relative",
-      padding: "5px",
-      overflow: "hidden",
-      height: "100%",
-      width: "100%",
-      "& $card": {
-        transformStyle: "preserve-3d",
-        minHeight: "160px",
-        width: "100%",
-        transition: "all .5s ease",
-        backgroundColor: theme.palette.custom.cardsBack,
-        "& $cardIcon": {
-          margin: "20px 0",
-          fontSize: "60px",
-        },
-        "& $cardFront": {
-          textAlign: "center",
-          color: theme.palette.custom.textPrimary,
-          fontWeight: "bold",
-          cursor: "pointer",
-          padding: "5px",
-          height: "100%",
-          width: "100%",
-          position: "absolute",
-          backfaceVisibility: "hidden",
-          backgroundColor: theme.palette.custom.cardsBack,
-        },
-        "& $cardBack": {
-          textAlign: "center",
-          color: theme.palette.primary.main,
-          height: "100%",
-          width: "100%",
-          position: "absolute",
-          backfaceVisibility: "hidden",
-          transform: "rotateY(180deg)",
-          top: 0,
-          right: 0,
-          padding: 0,
-          backgroundColor: theme.palette.custom.cardsBack,
-        },
-        "& $flipIcon": {
-          position: "absolute",
-          right: 0,
-          top: 0,
-          cursor: "pointer",
-          padding: theme.spacing(1, 2),
-          "& > *": {
-            fontSize: "30px",
-            lineHeight: 0,
-            height: "16px",
-            color: theme.palette.primary.main,
-          },
-        },
+      "& h3": {
+        margin: 0,
+        marginBottom: 2,
+        fontSize: 15,
       },
-      "& $reverse": {
-        transform: "rotateY(180deg)",
+      "& > div > span": {
+        fontSize: 13,
+        opacity: 0.8,
+      },
+      "&:last-child": {
+        padding: 0,
       },
     },
-    card: {},
-    reverse: {},
-    cardFront: {},
-    flipIcon: {},
-    cardBack: {},
-    cardIcon: {},
+    cardContent: {
+      "& > div": {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+      },
+    },
+    bookMark: {
+      fontSize: 16,
+      padding: 2,
+      color: theme.palette.color.yellow,
+    },
+    icons: {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      display: "flex",
+      justifyContent: "flex-end",
+      opacity: 1,
+      alignItems: "flex-end",
+      "& $mediaIcon:nth-child(2)": {
+        fontSize: 15,
+        top: 2,
+      },
+    },
+    mediaIcon: {
+      position: "relative",
+      fontSize: 14,
+      color: theme.palette.color.gray,
+      padding: theme.spacing(1),
+    },
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
-    [theme.breakpoints.down("md")]: {
-      menuItemContainer: {
-        "& .MuiListItem-gutters": {
-          fontSize: "0.9rem",
-        },
-      },
-    },
+    [theme.breakpoints.down("md")]: {},
     [theme.breakpoints.down("sm")]: {},
     [theme.breakpoints.down("xs")]: {},
   };

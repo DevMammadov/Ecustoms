@@ -26,6 +26,9 @@ export const useStyles = makeStyles((theme) => {
         marginBottom: theme.spacing(2),
       },
     },
+    inputContainer: {
+      marginBottom: theme.spacing(2),
+    },
     [theme.breakpoints.down("xl")]: {
       sectionHeader: {
         margin: theme.spacing(3, 1, 2, 0),

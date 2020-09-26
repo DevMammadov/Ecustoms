@@ -3,6 +3,9 @@ export interface IInfo {
   signatureNumber: string;
   voen: string;
   fullName: string;
+  name: string;
+  surname: string;
+  fatherName: string;
   hasStamp: number;
   address: string;
   phone: string;
@@ -76,7 +79,6 @@ export interface IIinfoPage {
   info: IInfo;
   getInfo(): void;
   updateInfo(info: IInfoFormData): void;
-  localToken: string;
   loading: boolean;
 }
 
@@ -94,7 +96,5 @@ export interface ISmsInfoPage {
   removeEmail(email: number): void;
   toggleNumberActivity(data: IToggleActivityPayload): void;
   toggleEmailActivity(data: IToggleActivityPayload): void;
-  localToken: string;
   width: any;
-  pageLoading: boolean;
 }

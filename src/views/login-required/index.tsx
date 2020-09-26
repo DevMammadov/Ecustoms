@@ -1,10 +1,10 @@
-import { AlertPage } from "components/shared";
-import React from "react";
-import { useTranslator } from "localization";
-import { faExclamationTriangle } from "@fortawesome/pro-duotone-svg-icons";
+import { AlertPage } from 'components/shared';
+import React from 'react';
+import { useTranslator } from 'localization';
+import { faExclamationTriangle } from '@fortawesome/pro-duotone-svg-icons';
 
 export const LoginRequired = () => {
-  const lang = useTranslator("alerts");
+  const lang = useTranslator('alerts');
 
   return (
     <AlertPage

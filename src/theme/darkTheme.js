@@ -1,8 +1,40 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { muli } from "./fonts";
+import {
+  mulishExtraLight,
+  mulishExtraLightItalic,
+  mulishLight,
+  mulishLightItalic,
+  mulishRegular,
+  mulishItalic,
+  mulishMedium,
+  mulishMediumItalic,
+  mulishSemiBold,
+  mulishSemiBoldItalic,
+  mulishBold,
+  mulishBoldItalic,
+  mulishExtraBold,
+  mulishExtraBoldItalic,
+  mulishBlack,
+  mulishBlackItalic,
+} from "./fonts";
 
 // A custom theme for this app
 export const darkTheme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      "Muli",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  },
   overrides: {
     MuiTypography: {
       body1: {},
@@ -12,7 +44,24 @@ export const darkTheme = createMuiTheme({
     },
     MuiCssBaseline: {
       "@global": {
-        "@font-face": [muli],
+        "@font-face": [
+          mulishExtraLight,
+          mulishExtraLightItalic,
+          mulishLight,
+          mulishLightItalic,
+          mulishRegular,
+          mulishItalic,
+          mulishMedium,
+          mulishMediumItalic,
+          mulishSemiBold,
+          mulishSemiBoldItalic,
+          mulishBold,
+          mulishBoldItalic,
+          mulishExtraBold,
+          mulishExtraBoldItalic,
+          mulishBlack,
+          mulishBlackItalic,
+        ],
       },
     },
     MuiGrid: {
@@ -166,6 +215,17 @@ export const darkTheme = createMuiTheme({
       textPrimary: "#d9d9d9",
       whiteToBlack: "#383838",
       grayToWhite: "#bfbfbf",
+      textColor: "#d9d9d9",
+    },
+    alert: {
+      error: {
+        color: "rgb(97, 26, 21)",
+        background: "#FFEDEA",
+      },
+      info: {
+        color: "rgb(13, 60, 97)",
+        background: "rgb(232, 244, 253)",
+      },
     },
   },
 });

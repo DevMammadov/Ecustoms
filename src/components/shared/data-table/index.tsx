@@ -1,44 +1,22 @@
-import { TablePagination } from "@material-ui/core";
 import clsx from "clsx";
 import { useTranslator } from "localization";
 import MaterialTable, { MaterialTableProps } from "material-table";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useStyles } from "./data-table.style";
-import { defaultOptions, warnText } from "./options";
+import { defaultOptions } from "./options";
 
 export interface IMaterialTable {
-  onLimitChange?(event: object, limit: number): void;
-  onOffsetChange?(event: object, limit: number): void;
-  offset?: number;
-  limit?: number;
-  dataCount?: number;
   stripped?: boolean;
-  pagenate?: boolean;
+  className?: string;
 }
 
-export const DataTable: FC<IMaterialTable & MaterialTableProps<object>> = ({
-  onLimitChange,
-  onOffsetChange,
-  offset,
-  limit,
-  dataCount,
-  stripped,
-  pagenate,
-  ...rest
-}) => {
+export const DataTable: FC<IMaterialTable & MaterialTableProps<object>> = ({ stripped, className, ...rest }) => {
   const lang = useTranslator("main");
   const classes = useStyles();
 
-  useEffect(() => {
-    if (pagenate && (limit === undefined || offset === undefined || dataCount === undefined)) {
-      console.error(warnText);
-    }
-  });
-
   return (
-    <div className={clsx(classes.root, stripped && classes.stripped)}>
+    <div className={clsx(classes.root, stripped && classes.stripped, className)}>
       <MaterialTable
-        {...rest}
         options={{ ...defaultOptions, ...rest.options }}
         localization={{
           body: {
@@ -46,24 +24,13 @@ export const DataTable: FC<IMaterialTable & MaterialTableProps<object>> = ({
           },
           pagination: {
             labelRowsSelect: lang.row,
+            nextTooltip: lang.next,
+            previousTooltip: lang.back,
+            lastTooltip: lang.lastPage,
+            firstTooltip: lang.firstPage,
           },
         }}
-        components={
-          pagenate
-            ? {
-                Pagination: (props: any) => (
-                  <TablePagination
-                    {...props}
-                    onChangePage={(event: object, page: number) => onLimitChange && onLimitChange(event, page)}
-                    onChangeRowsPerPage={(event: object, page: number) => onOffsetChange && onOffsetChange(event, page)}
-                    rowsPerPage={offset}
-                    count={dataCount}
-                    page={limit}
-                  />
-                ),
-              }
-            : {}
-        }
+        {...rest}
       />
     </div>
   );

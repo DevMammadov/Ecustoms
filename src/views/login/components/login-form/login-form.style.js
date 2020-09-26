@@ -103,7 +103,15 @@ export const useStyles = makeStyles((theme) => {
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
     [theme.breakpoints.down("md")]: {},
-    [theme.breakpoints.down("sm")]: {},
-    [theme.breakpoints.down("xs")]: {},
+    [theme.breakpoints.down("sm")]: {
+      tabContent: {
+        padding: theme.spacing(2, 0),
+      },
+    },
+    [theme.breakpoints.down("xs")]: {
+      tabContent: {
+        padding: theme.spacing(4, 0, 2),
+      },
+    },
   };
 });

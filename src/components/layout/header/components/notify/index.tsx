@@ -28,8 +28,6 @@ export const Notify: FC<IProps> = ({ data, className, type, onClick = () => {}, 
   const history = useHistory();
   const lang = useTranslator("header");
 
-  console.log(data);
-
   const renderIcon = (mode: "sms" | "notify") => {
     return mode === "notify" ? faBell : faEnvelope;
   };
@@ -40,7 +38,7 @@ export const Notify: FC<IProps> = ({ data, className, type, onClick = () => {}, 
   };
 
   const handleLookAll = () => {
-    history.push(links.Notification.baseUrl);
+    history.push(links.Notifications.baseUrl);
     setAnchorEl(null);
   };
 
@@ -94,7 +92,7 @@ export const Notify: FC<IProps> = ({ data, className, type, onClick = () => {}, 
         <StyledMenuItem className={classes.lastItem}>
           <ListItemText>
             <Link underline="none" onClick={handleLookAll}>
-              {lang.lookAll}
+              {lang.lookAll || ""}
             </Link>
           </ListItemText>
         </StyledMenuItem>

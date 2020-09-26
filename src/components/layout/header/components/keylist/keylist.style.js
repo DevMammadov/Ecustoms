@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => {
     selectIcon: {
       border: "1px solid",
       padding: theme.spacing(1),
-      borderColor: theme.palette.custom.borderColor,
+      borderColor: theme.palette.color.gray,
       borderBottomLeftRadius: theme.spacing(1.2),
       borderTopLeftRadius: theme.spacing(1.2),
       display: "flex",
@@ -32,8 +32,12 @@ export const useStyles = makeStyles((theme) => {
     [theme.breakpoints.down("md")]: {},
     [theme.breakpoints.down("sm")]: {},
     [theme.breakpoints.down("xs")]: {
-      selectBox: {
-        display: "none",
+      selectIcon: {
+        background: theme.palette.color.gray,
+        color: theme.palette.color.white,
+      },
+      keyIcon: {
+        color: theme.palette.color.white,
       },
     },
   };

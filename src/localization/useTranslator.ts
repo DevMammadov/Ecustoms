@@ -1,9 +1,25 @@
 import { useSelector } from "react-redux";
 import { IAppState } from "store/reducers";
-import _ from "lodash";
 
 export const useTranslator = (
-  page?: "myInfo" | "login" | "cards" | "givingPermission" | "header" | "alerts" | "xifDocs" | "formAlerts" | "main",
+  page?:
+    | "myInfo"
+    | "login"
+    | "cards"
+    | "givingPermission"
+    | "header"
+    | "alerts"
+    | "xifDocs"
+    | "formAlerts"
+    | "main"
+    | "gooen"
+    | "postal-services"
+    | "cargo"
+    | "eServices"
+    | "declarationInfo"
+    | "declaration"
+    | "feedback"
+    | "postal-declaration",
   other?: string[] // other pages you want include to lang object
 ) => {
   const langState = useSelector((state: IAppState) => state.header.lang) || "az";
@@ -43,10 +59,23 @@ export const useTranslator = (
     }
 
     if (notExists.length > 0) {
-      console.warn(`${window.location.pathname} \n "${notExists}" is not key of useTranslator Lang object`);
+      console.warn(
+        `${window.location.pathname} \n "${notExists}" is not key of useTranslator Lang object (lang is ${langState})`
+      );
     }
     return pageLang;
   };
 
   return _getCombinedPages(page, other);
+};
+
+export const replaceLang = (text: string, words: any[]) => {
+  const _replace = (text: string, words: string[]) => {
+    for (let ind in words) {
+      text = text.replaceAll(`$${ind}`, words[ind]);
+    }
+    return text;
+  };
+
+  return _replace(text, words);
 };

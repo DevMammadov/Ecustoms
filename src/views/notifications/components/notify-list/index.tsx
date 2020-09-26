@@ -66,7 +66,12 @@ export const NotifyList: FC<INotifyList> = ({ data, count = 1, onPaginate, curre
         ))}
       </List>
       {count > 1 && (
-        <Pagination onChange={(e: object, page: number) => onPaginate(page)} page={currentPage} count={count} />
+        <Pagination
+          onChange={(e: object, page: number) => onPaginate(page)}
+          page={currentPage}
+          count={count}
+          className={classes.pagination}
+        />
       )}
     </div>
   );

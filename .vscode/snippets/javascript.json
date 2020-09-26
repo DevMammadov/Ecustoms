@@ -17,5 +17,10 @@
       ""
     ],
     "description": "jss style pattern"
+  },
+  "import named component": {
+    "prefix": "imp",
+    "body": ["import {$2} from \"$1\";"],
+    "description": "import named component"
   }
 }

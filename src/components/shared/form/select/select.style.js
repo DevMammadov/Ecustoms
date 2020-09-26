@@ -9,11 +9,12 @@ export const useStyles = makeStyles((theme) => {
     },
     label: {
       width: "100%",
-      //marginBottom: theme.spacing(0.4),
-      color: theme.palette.custom.grayToWhite,
+    },
+    selectRoot: {
+      width: "100%",
     },
     select: {
-      width: "100%",
+      padding: theme.spacing(1),
     },
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},

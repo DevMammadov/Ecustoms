@@ -6,23 +6,23 @@ export const useTableData = () => {
   const lang = useTranslator("myInfo");
 
   const personalInfo: IColumn[] = [
-    { name: "pinCode", title: lang.pinCode },
-    { name: "fullName", title: `${lang.lastName}, ${lang.name}, ${lang.fathersName}` },
-    { name: "hasStamp", title: lang.SignatureStatus },
-    { name: "eBirbasa", title: lang.representativeActivities },
-    { name: "attestatNo", title: lang.qualificationCertificate },
+    { name: "pinCode", field: "pinCode", title: lang.pinCode },
+    { name: "fullName", field: "fullName", title: `${lang.lastName}, ${lang.name}, ${lang.patronymic}` },
+    { name: "hasStamp", field: "hasStamp", title: lang.SignatureStatus },
+    { name: "eBirbasa", field: "eBirbasa", title: lang.representativeActivities },
+    { name: "attestatNo", field: "attestatNo", title: lang.qualificationCertificate },
   ];
 
   const companyInfo: IColumn[] = [
-    { name: "voen", title: lang.voen },
-    { name: "companyName", title: lang.organizationName },
-    { name: "companyAddress", title: lang.address },
-    { name: "status", title: lang.status },
-    { name: "representation", title: lang.representativeActivities },
+    { name: "voen", field: "voen", title: lang.voen },
+    { name: "companyName", field: "companyName", title: lang.organizationName },
+    { name: "companyAddress", field: "companyAddress", title: lang.address },
+    { name: "status", field: "status", title: lang.status },
+    { name: "representation", field: "representation", title: lang.representativeActivities },
   ];
 
   const modifyData = (obj: IInfo) => {
-    let newObj = { ...obj };
+    let newObj = { ...obj } as any;
     let personRep = "";
     let companyRep = "";
     if (newObj) {
@@ -40,6 +40,7 @@ export const useTableData = () => {
       newObj.attestatNo = newObj.attestatNo && `No ${newObj.attestatNo} - ${newObj.attestatDate}`;
       newObj.eBirbasa = personRep.length > 0 ? `${personRep} ${lang.representation}` : ("" as any);
       newObj.representation = companyRep.length > 0 ? `${companyRep} ${lang.representation}` : "";
+      newObj.fullName = `${newObj.fullName}`;
     }
     return obj && Object.keys(obj).length > 0 ? newObj : {};
   };
@@ -49,7 +50,7 @@ export const useTableData = () => {
 
     if (obj && obj.greenCor) {
       for (let str of obj?.greenCor) {
-        statusColumns.push({ name: "", title: str });
+        statusColumns.push({ name: "", field: "", title: str });
       }
     }
     return statusColumns;

@@ -1,20 +1,12 @@
 import { handleActions } from "redux-actions";
-import {
-  getLastNotifyAsync,
-  getNotifyAsync,
-  getFilterFieldsAsync,
-  sendNotifyFilterFormAsync,
-  togglePage,
-  toogleFiltering,
-} from "./action";
-import { INotify, IFilter, INotification } from "../types";
+import { getLastNotifyAsync, getNotifyAsync, getFilterFieldsAsync, toggleFilter } from "./action";
+import { INotify, IFilter, INotification, INotifyFilter } from "../types";
 
 export interface INotifyState {
   lastNotify: INotify[];
   filters: IFilter[];
   notifications: INotification;
-  page: number;
-  isFiltered: boolean;
+  filter: INotifyFilter;
   loading: boolean;
 }
 
@@ -22,9 +14,14 @@ const initialState: INotifyState = {
   lastNotify: [],
   notifications: {} as any,
   filters: [],
-  page: 1,
-  isFiltered: false,
   loading: false,
+  filter: {
+    limit: 10,
+    offset: 1,
+    gridFilter: "main",
+    isFiltered: false,
+    form: {},
+  },
 };
 
 export default handleActions(
@@ -50,15 +47,7 @@ export default handleActions(
       filters: action.payload.data,
       loading: false,
     }),
-    [sendNotifyFilterFormAsync.started]: (state) => ({ ...state, loading: true }),
-    [sendNotifyFilterFormAsync.failed]: (state) => ({ ...state, loading: false }),
-    [sendNotifyFilterFormAsync.success]: (state, action: any) => ({
-      ...state,
-      notifications: action.payload.data,
-      loading: false,
-    }),
-    [togglePage]: (state, action: any) => ({ ...state, page: action.payload }),
-    [toogleFiltering]: (state, action: any) => ({ ...state, isFiltered: action.payload }),
+    [toggleFilter]: (state, action: any) => ({ ...state, filter: action.payload }),
   },
   initialState
 );

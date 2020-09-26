@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { icon } from "./login-icon";
-import { useTranslator, StyleWord } from "localization";
+import { useTranslator } from "localization";
 
 export interface ILoginData {
   login: string;
@@ -64,7 +64,7 @@ export const LoginForm: FC<ILoginForm> = ({ onFormSubmit, onLoginClick }) => {
         aria-label="login tabs"
       >
         <Tab label={lang.asanLogin} {...a11yProps(1)} />
-        <Tab label={lang.userName} {...a11yProps(0)} />
+        <Tab label={lang.userName} disabled {...a11yProps(0)} />
       </Tabs>
       <Typography component="div" className={classes.tabContent}>
         <TabPanel value={value} index={0}>
@@ -82,9 +82,7 @@ export const LoginForm: FC<ILoginForm> = ({ onFormSubmit, onLoginClick }) => {
               {lang.asanLogin}
             </Typography>
           </Link>
-          <Typography component="div" className={classes.asanLoginText}>
-            <StyleWord text={lang.visitAsanLogin} word={lang.asanLogin} style={{ fontWeight: "bold" }} />
-          </Typography>
+          <Typography component="div" className={classes.asanLoginText}></Typography>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <form onSubmit={handleSubmit(onSubmit)} className={classes.loginForm}>

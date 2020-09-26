@@ -1,5 +1,5 @@
 import React, { FormEvent, FC } from "react";
-import { Checkbox } from "components/shared/form/checkbox";
+import { Checkbox } from "components/shared";
 import { useTranslator } from "localization";
 
 interface IPermissionCheckList {

@@ -3,13 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => {
   return {
     sectionHeader: {
-      padding: theme.spacing(2, 0, 5, 0),
-      textTransform: "capitalize",
-      fontWeight: "bold",
+      paddingBottom: theme.spacing(3),
+      //textTransform: "capitalize",
     },
-    large: { fontSize: "2rem" },
-    medium: { fontSize: "1.2rem" },
-    small: { fontSize: "0.9rem" },
+    large: { fontSize: "2rem", fontWeight: "bold" },
+    medium: { fontSize: "1.3rem", fontWeight: "bold" },
+    small: { fontSize: "0.9rem", fontWeight: "bold" },
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
     [theme.breakpoints.down("md")]: {},

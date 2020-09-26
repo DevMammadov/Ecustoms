@@ -6,7 +6,6 @@ import { IconButton, Button } from "@material-ui/core";
 import { IToggleActivityPayload } from "../../types";
 import AddIcon from "@material-ui/icons/Add";
 import { useStyles } from "../../tabs/sms-info/sms-info.style";
-import { Timer } from "components/shared";
 import { useTranslator } from "localization";
 
 export interface IFormContainer {
@@ -36,7 +35,6 @@ export const FormContainer: FC<IFormContainer> = ({
   onFormClose = () => {},
 }) => {
   const [showForm, setShowForm] = useState<boolean>(false);
-  const [timerComplated, setTimerComplated] = useState<boolean>(true);
   const lang = useTranslator("myInfo");
   const classes = useStyles();
 
@@ -49,7 +47,6 @@ export const FormContainer: FC<IFormContainer> = ({
   const handleSend = (text: string) => {
     onSend(text);
     setShowForm(false);
-    setTimerComplated(false);
   };
 
   const handleConfirm = (text: string) => {
@@ -98,24 +95,15 @@ export const FormContainer: FC<IFormContainer> = ({
           <>
             <InputButton
               visible={true}
-              disabled={!timerComplated}
+              disabled={false}
+              buttonID={`contacts-${type}`}
               onSubmit={handleSend}
               fieldType={type}
               numberArrows={false}
               placeholder={type === "email" ? "example@gmail.com" : "0555555555"}
               title={title}
               inputValue={userContact}
-              buttonLabel={
-                <Timer
-                  onComplate={() => setTimerComplated(true)}
-                  startTime={20}
-                  endTime={0}
-                  interval={1}
-                  countDown
-                  started={!timerComplated}
-                  callbackContent={lang.send}
-                />
-              }
+              buttonLabel={lang.send}
             />
             <InputButton
               visible={!!userContact}

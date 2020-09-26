@@ -29,12 +29,12 @@ export const Lang: FC<ILang> = ({ changeLang, className, selected }) => {
         <MenuItem key={1} value="az">
           {lang.az}
         </MenuItem>
-        <MenuItem key={2} value="en">
+        {/* <MenuItem key={2} value="en">
           {lang.en}
         </MenuItem>
         <MenuItem key={3} value="ru">
           {lang.ru}
-        </MenuItem>
+        </MenuItem> */}
       </Select>
     </div>
   );

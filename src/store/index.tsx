@@ -3,18 +3,11 @@ import _ from "lodash";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import { createLogger } from "redux-logger";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import createSagaMiddleware, { SagaMiddleware } from "redux-saga";
 import createReducers from "./reducers";
 import rootSaga from "./sagas";
 
 const sagaMiddleware: SagaMiddleware<object> = createSagaMiddleware();
-
-const persistConfig = {
-  key: "ecustoms",
-  storage,
-};
 
 const loggerActionColors = {
   success: "green",
@@ -32,18 +25,11 @@ const logger = createLogger({
 });
 
 const devMiddlewares = _.compact([logger]);
-//let storeCopy: any;
-
 export const createHistory = (history: any) => {
-  const persistedReducer = persistReducer(persistConfig, createReducers(history));
-
   const store = createStore(
-    persistedReducer,
+    createReducers(history),
     composeWithDevTools(applyMiddleware(routerMiddleware(history), sagaMiddleware, ...devMiddlewares))
   );
-  //storeCopy = store;
   sagaMiddleware.run(rootSaga);
-
-  const persistor = persistStore(store);
-  return { store, persistor };
+  return { store };
 };

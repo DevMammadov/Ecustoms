@@ -22,18 +22,10 @@ export const Manage: FC<IManagePage> = ({
   updateWorkerPermission,
   toggleWorkerPermission,
   showSearchBar = true,
-  localToken,
 }) => {
   const classes = useStyles();
   const history = useHistory();
   const lang = useTranslator("givingPermission", ["myInfo"]);
-  const [oldLocalToken] = useState(localToken);
-
-  useEffect(() => {
-    if (oldLocalToken !== localToken) {
-      history.push(`/giving-permissions/`);
-    }
-  }, [localToken, history, oldLocalToken]);
 
   const handleSertificateChange = (sertType: number) => {
     setSearchSert(sertType);
@@ -70,12 +62,11 @@ export const Manage: FC<IManagePage> = ({
       {showSearchBar && (
         <Grid item xs={12} component={Paper} className={classes.searchBarContainerGrid}>
           <div className={classes.manageSearchContainer}>
-            <SearchInput defaultValue={permissions.singleWorker.pin} onSearch={handleSearch} title={lang.pinCode} />
+            <SearchInput defaultValue={permissions.singleWorker.pin} onSearch={handleSearch} label={lang.pinCode} />
             <TextField
-              label={`${lang.lastName}, ${lang.name}, ${lang.fathersName}`}
+              label={`${lang.lastName}, ${lang.name}, ${lang.patronymic}`}
               multiline
               disabled
-              //classes={{ label: classes.inputLabel }}
               value={permissions.singleWorker.fullName}
             />
           </div>
@@ -108,5 +99,5 @@ export const Manage: FC<IManagePage> = ({
   );
 };
 
-const mapStateToProps = (state: IAppState) => ({ permissions: state.permissions, localToken: state.user.localToken });
+const mapStateToProps = (state: IAppState) => ({ permissions: state.permissions });
 export default connect(mapStateToProps, PermissionsActions)(Manage);

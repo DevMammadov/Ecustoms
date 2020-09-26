@@ -98,10 +98,6 @@ export function* myInfoSaga() {
     [MyinfoActions.toggleEmailActivityAsync.success, MyinfoActions.toggleNumberActivityAsync.success],
     changeStatusFlow
   );
-
-  yield takeEvery([MyinfoActions.getInfoAsync.failed, MyinfoActions.updateBankInfoAsync.failed], internetErrorFlow);
-  yield takeEvery(MyinfoActions.sendNumberCodeAsync.failed, sendNumberFail);
-  yield takeEvery(MyinfoActions.updateInfoAsync.failed, updateInfoFailFlow);
 }
 
 function* getInfoFlow() {
@@ -117,43 +113,29 @@ function* getBankInfoFlow() {
 }
 
 const updateInfoFlow = () => {
-  toast.success("melumatlariniz yenilendi");
-};
-
-const updateInfoFailFlow = ({ payload }: any) => {
-  toast.info(payload.response?.data);
+  toast.success("Məlumatlarınız yeniləndi.");
 };
 
 const bankUpdatedFlow = () => {
-  toast.success("Bank məlumatlarınız yeniləndi");
+  toast.success("Bank məlumatlarınız yeniləndi.");
 };
 
 const sendNumberFlow = () => {
-  toast.success("Nomreniz elave edildi");
+  toast.success("Nömrəniz əlavə edildi.");
 };
 
 const sendEmailFlow = () => {
-  toast.success("Emailiniz elave edildi");
+  toast.success("Email ünvanınız əlavə edildi.");
 };
 
 const numberRemovedFlow = () => {
-  toast.success("Nomreniz silindi");
+  toast.success("Nömrəniz silindi.");
 };
 
 const emailRemovedFlow = () => {
-  toast.success("Email unvaniniz silindi");
+  toast.success("Email ünvanınız silindi.");
 };
 
 const changeStatusFlow = () => {
-  toast.success("Activlik statusu yenilendi");
+  toast.success("Aktivlik statusu yeniləndi.");
 };
-
-const sendNumberFail = ({ payload }: any) => {
-  if (payload.response.status === 400) {
-    toast.error(payload.response.data);
-  }
-};
-
-function internetErrorFlow(payload: any) {
-  toast.error("Bazayla əlaqə alınmadı");
-}

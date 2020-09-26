@@ -29,8 +29,10 @@ const BankInfo: FC<IBankInfoPage> = ({ bankInfo, getBankInfo, updateBankInfo, lo
   const { columns } = useTableData();
 
   useEffect(() => {
-    getBankInfo();
-  }, [getBankInfo, currentUser.localToken]);
+    if (currentUser.voen) {
+      getBankInfo();
+    }
+  }, [getBankInfo, currentUser.voen]);
 
   return (
     <div className={classes.container}>
@@ -88,7 +90,7 @@ const BankInfo: FC<IBankInfoPage> = ({ bankInfo, getBankInfo, updateBankInfo, lo
           icon={faInfoCircle}
           classes={{ icon: classes.alertIcon, root: classes.alertPageContainer }}
           color="primary"
-          title={lang.permissionalert}
+          title={lang.voenRequired}
         />
       )}
     </div>

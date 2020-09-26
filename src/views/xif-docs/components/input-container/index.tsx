@@ -1,6 +1,6 @@
-import React, { FC, Children, useEffect } from "react";
-import clsx from "clsx";
-import { useStyles } from "./input-container.style";
+import React, { FC } from 'react';
+import clsx from 'clsx';
+import { useStyles } from './input-container.style';
 
 export interface IInputContainer {
   visible: boolean;

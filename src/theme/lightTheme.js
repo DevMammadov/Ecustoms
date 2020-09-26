@@ -1,8 +1,28 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { muli } from "./fonts";
+import {
+  mulishExtraLight,
+  mulishExtraLightItalic,
+  mulishLight,
+  mulishLightItalic,
+  mulishRegular,
+  mulishItalic,
+  mulishMedium,
+  mulishMediumItalic,
+  mulishSemiBold,
+  mulishSemiBoldItalic,
+  mulishBold,
+  mulishBoldItalic,
+  mulishExtraBold,
+  mulishExtraBoldItalic,
+  mulishBlack,
+  mulishBlackItalic,
+} from "./fonts";
 
 // A custom theme for this app
 export const lightTheme = createMuiTheme({
+  typography: {
+    fontFamily: ["'Mulish'"].join(","),
+  },
   overrides: {
     MuiTypography: {
       body1: {},
@@ -12,7 +32,36 @@ export const lightTheme = createMuiTheme({
     },
     MuiCssBaseline: {
       "@global": {
-        "@font-face": [muli],
+        "@font-face": [
+          mulishExtraLight,
+          mulishExtraLightItalic,
+          mulishLight,
+          mulishLightItalic,
+          mulishRegular,
+          mulishItalic,
+          mulishMedium,
+          mulishMediumItalic,
+          mulishSemiBold,
+          mulishSemiBoldItalic,
+          mulishBold,
+          mulishBoldItalic,
+          mulishExtraBold,
+          mulishExtraBoldItalic,
+          mulishBlack,
+          mulishBlackItalic,
+        ],
+      },
+    },
+    MuiStepper: {
+      root: {
+        "& .MuiSvgIcon-root": {
+          fontSize: 28,
+        },
+      },
+    },
+    MuiCard: {
+      root: {
+        boxShadow: 0,
       },
     },
     MuiIconButton: {
@@ -27,15 +76,6 @@ export const lightTheme = createMuiTheme({
           display: "block",
           width: "100%",
         },
-      },
-    },
-    MuiSelect: {
-      select: {
-        border: "1px solid rgba(191, 182, 182, 0.45)",
-        background: "#fff",
-        borderRadius: "8px",
-        padding: "7.2px",
-        boxSizing: "border-box",
       },
     },
     MuiTabs: {
@@ -73,16 +113,12 @@ export const lightTheme = createMuiTheme({
       borderColor: "rgba(224, 224, 224, 1)",
       disabled: "#f4f4f4",
     },
-    color: {
-      white: "#fff",
-      gray: "rgba(191, 182, 182, 0.45)",
-      darkGray: "rgba(0, 0, 0, 0.54)",
-    },
     primary: {
       light: "#465e8a",
       main: "#394e75",
       dark: "#2f446b",
       contrastText: "#fff",
+      catskillWhite: "#eef1f7",
     },
     warning: {
       main: "#fca50f",
@@ -92,6 +128,8 @@ export const lightTheme = createMuiTheme({
     },
     success: {
       main: "#29CC97",
+      light: "rgb(233, 249, 244)",
+      dark: "#19AE82",
     },
     custom: {
       trStripped: "rgba(55, 81, 255, 0.04)",
@@ -99,8 +137,28 @@ export const lightTheme = createMuiTheme({
       borderColor: "rgba(191, 182, 182, 0.45)",
       textPrimary: "#394e75",
       whiteToBlack: "#fff",
+      textColor: "#363636",
       grayToWhite: "#808080",
       grayToDark: "#fafafa",
+      labelcolor: "rgba(0, 0, 0, 0.87)",
+    },
+    color: {
+      yellow: "#FFDA1B",
+      white: "#fff",
+      gray: "rgba(191, 182, 182, 0.45)",
+      darkGray: "rgba(0, 0, 0, 0.54)",
+      koromiko: "#4CB8FF",
+      permission: "#EA6607",
+    },
+    alert: {
+      error: {
+        color: "rgb(97, 26, 21)",
+        background: "#FFEDEA",
+      },
+      info: {
+        color: "rgb(13, 60, 97)",
+        background: "rgb(232, 244, 253)",
+      },
     },
   },
 });

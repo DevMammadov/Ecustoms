@@ -21,7 +21,7 @@
       },
       {
         "title": "Şəxsi hesab vərəqəsi",
-        "link": "/construction/personal-card",
+        "link": "/under-construction/personal-card",
         "icon": "faUserCircle",
         "auth": "1,0",
         "enabled": true
@@ -30,6 +30,13 @@
         "title": "İstifadəçilər",
         "link": "/giving-permissions",
         "icon": "faUserPlus",
+        "auth": "1,0",
+        "enabled": true
+      },
+      {
+        "title": "Seçilmiş xidmətlər",
+        "link": "/favorite-cards",
+        "icon": "faStars",
         "auth": "1,0",
         "enabled": true
       }
@@ -64,7 +71,7 @@
       },
       {
         "title": "Açıq məlumatlar",
-        "link": "/construction/free-informations",
+        "link": "/under-construction/free-informations",
         "icon": "faProjectDiagram",
         "auth": "1,0",
         "enabled": true
@@ -79,21 +86,21 @@
     "menu": [
       {
         "title": "e - xidmətlər",
-        "link": "/construction/video-courses",
+        "link": "/e-services",
         "icon": "faFilmAlt",
         "auth": "1,0",
         "enabled": true
       },
       {
         "title": "Rəy və təkliflər",
-        "link": "/construction/comments",
+        "link": "/feedback",
         "icon": "faCommentAltDots",
         "auth": "1,0",
         "enabled": true
       },
       {
         "title": "Asan logout",
-        "link": "https://asanlogintest.my.gov.az/dashboard",
+        "link": "/logout",
         "icon": "faSignOutAlt",
         "auth": "0",
         "enabled": true

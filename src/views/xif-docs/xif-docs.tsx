@@ -1,117 +1,105 @@
+import React, { FC, useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
-import { SectionHeader, Spinner, AlertPage } from "components/shared";
-import React, { FC, useEffect } from "react";
-import { connect, useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { SectionHeader, Spinner, FilterBar, DataTable, Popup } from "components/shared";
+import { connect } from "react-redux";
 import { IAppState } from "store/reducers";
-import { StartPage, AddXifDoc } from "./layouts";
 import { XifDocsActions } from "./store/action";
-import { IXifDocsPage, ISearchResponse } from "./types";
+import { IXifDocsPage, IRemoveDoc, IXifDoc } from "./types";
 import { useUser } from "hooks";
 import { useTranslator } from "localization";
-import { faInfoCircle } from "@fortawesome/pro-duotone-svg-icons";
-import { IAddDocRequest, IUpdateDoc } from "./types";
-import moment from "moment";
-import { toFormData } from "helpers";
-import { stopSubmit } from "redux-form";
-import { XifDocList } from "./components";
-import { useHistory } from "react-router-dom";
 import { links } from "routes/links";
+import { faFile } from "@fortawesome/pro-duotone-svg-icons";
+import { useModalForm, useColumns } from "./table-data";
 
 const XifDocs: FC<IXifDocsPage> = ({
-  match,
-  xifDocs,
+  xifDocState,
   getXifDocs,
-  sendXifDocs,
-  toogleFiltering,
-  sendFilterForm,
+  searchXifDoc,
   getFile,
   removeDoc,
-  updateDoc,
+  getXifDocTypes,
+  toggleFilter,
 }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [itemToRemove, setItemToRemove] = useState<IRemoveDoc | null>(null);
   const lang = useTranslator("xifDocs", ["alerts", "formAlerts"]);
   const currentUser = useUser();
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const addNewRoute = match.params.page;
 
   useEffect(() => {
-    if (currentUser.voen && !addNewRoute) {
+    if (xifDocState.filter?.isFiltered) {
+      searchXifDoc(xifDocState.filter.form);
+    } else {
       getXifDocs();
     }
-  }, [getXifDocs, currentUser.localToken, currentUser.lang, addNewRoute, currentUser.voen]);
+  }, [getXifDocs, currentUser.lang, getXifDocTypes, xifDocState.filter]);
 
-  const handleDocFormSubmit = (data: any) => {
-    const response: IAddDocRequest = {
-      firmName: xifDocs.companyInfo?.companyName,
-      address: xifDocs.companyInfo?.companyAddress,
-      docType: data.docType,
-      hasContractNo: data.formSection.hasContractNo,
-      contractNo: data.formSection.contractNo,
-      contractDate: moment(data.formSection.contractDate).format("DD.MM.yyyy"),
-      validityDate: moment(data.formSection.validityDate).format("DD.MM.yyyy"),
-      invoice: data.formSection.invoys,
-      currencyType: String(data.formSection.currency),
-      recieverVoen: data.formSection.recieverVoen,
-      recieverName: data.formSection.recieverName,
-      senderVoen: data.formSection.senderVoen,
-      senderName: data.formSection.senderName,
-      note: data.formSection.note,
-      doc: data.formSection.doc && data.formSection.doc[0],
-    };
+  useEffect(() => {
+    getXifDocTypes();
+  }, []);
 
-    if (!data.id) {
-      if (data.formSection.doc && data.formSection.doc[0]?.name) {
-        console.log(data);
-        //sendXifDocs(toFormData(response));
-      } else {
-        dispatch(stopSubmit("addXifDocForm", { formSection: { doc: lang.required } }));
-      }
-    } else {
-      updateDoc({ data: toFormData(response), id: data.id });
+  const handleFileOpen = (id: number) => {
+    getFile(id);
+  };
+
+  const handleDialogAllow = () => {
+    if (itemToRemove) {
+      removeDoc(itemToRemove);
+      setOpen(!open);
     }
-
-    history.push(links.XifDoc.baseUrl);
   };
 
-  const handleFilterFormSend = (data: any) => {
-    toogleFiltering(true);
-    let senddata: ISearchResponse = {
-      startDate: moment(data.startDate).format("DD.MM.YYYY"),
-      endDate: moment(data.endDate).format("DD.MM.YYYY"),
-      docType: data.docType,
-    };
-    sendFilterForm(senddata);
+  const handleRemove = (worker: IXifDoc) => {
+    setItemToRemove({ id: worker.id, pinCode: worker.pinCode } as IRemoveDoc);
+    setOpen(!open);
   };
 
-  return !currentUser.voen ? (
-    <AlertPage icon={faInfoCircle} color="primary" title={lang.voenRequired} />
-  ) : (
+  const handleDialogDeny = () => {
+    setItemToRemove(null);
+    setOpen(!open);
+  };
+
+  return (
     <Grid container style={{ opacity: currentUser.pageLoading ? 0.5 : 1 }}>
+      <SectionHeader title={lang.xifDocs} />
+      <FilterBar
+        titleButtonText={lang.addDoc}
+        titleButtonIcon={faFile}
+        titleButtonLink={links.XifDoc.add}
+        modalTitle={lang.deepSearch}
+        onClear={() => toggleFilter({ ...xifDocState.filter, isFiltered: false, form: {} as any })}
+        onSend={(data) => toggleFilter({ ...xifDocState.filter, isFiltered: true, form: data })}
+        formName="xifFilterForm"
+        modalData={useModalForm(xifDocState.xifDocTypes)}
+        clearButtonDisabled={!xifDocState.filter.isFiltered}
+        dependency={[xifDocState.filter.isFiltered]}
+      />
       <Grid item xs={12}>
-        <SectionHeader title={lang.xifDocs} />
-      </Grid>
-      {addNewRoute ? (
-        <AddXifDoc onSubmit={handleDocFormSubmit} />
-      ) : xifDocs?.xifDocs?.length > 0 ? (
-        <XifDocList
-          sendFilterForm={handleFilterFormSend}
-          onFilterStart={() => toogleFiltering(true)}
-          xifDocs={xifDocs.xifDocs}
-          onRemove={(data) => removeDoc(data)}
-          onFileOpen={(idn) => getFile(idn)}
+        <DataTable
+          // @ts-ignore
+          columns={useColumns(handleRemove, handleFileOpen)}
+          data={xifDocState.xifDocs}
+          options={{
+            search: false,
+            toolbar: false,
+          }}
         />
-      ) : (
-        !currentUser.pageLoading && !xifDocs?.loading && <StartPage onClick={() => history.push(links.XifDoc.add)} />
-      )}
-      <Spinner hidden={!currentUser.pageLoading && !xifDocs?.loading} />
+        <Popup
+          type="remove"
+          open={open}
+          children={null}
+          onAllow={handleDialogAllow}
+          onDeny={handleDialogDeny}
+          title={lang.removeXifDoc}
+        />
+      </Grid>
+      <Spinner hidden={!currentUser.pageLoading && !xifDocState?.loading} />
     </Grid>
   );
 };
 
 const mapStateToProps = (state: IAppState) => ({
-  xifDocs: state.xifDocs,
+  xifDocState: state.xifDocs,
 });
 
-export default withRouter(connect(mapStateToProps, XifDocsActions)(XifDocs));
+export default connect(mapStateToProps, XifDocsActions)(XifDocs);
+//<StartPage onClick={() => history.push(links.XifDoc.add)} />

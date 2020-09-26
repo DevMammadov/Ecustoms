@@ -12,11 +12,6 @@ export function* notifySaga() {
   yield takeEvery(notifyActions.getNotify, bindAsyncActions(notifyActions.getNotifyAsync)(NotifyApi.getNotify));
 
   yield takeEvery(
-    notifyActions.sendNotifyFilterForm,
-    bindAsyncActions(notifyActions.sendNotifyFilterFormAsync)(NotifyApi.sendForm)
-  );
-
-  yield takeEvery(
     notifyActions.getFilterFields,
     bindAsyncActions(notifyActions.getFilterFieldsAsync)(NotifyApi.getFilters)
   );

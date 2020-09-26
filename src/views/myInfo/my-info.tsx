@@ -12,9 +12,7 @@ const MyInfo = ({ match, width }: any) => {
 
   return (
     <Grid container>
-      <Grid item xs={12}>
-        <SectionHeader title={lang.myInfo} />
-      </Grid>
+      <SectionHeader title={lang.myInfo} />
       <Grid item xs={12}>
         {isWidthUp("sm", width) ? <MyInfoDesktop page={match.params.tab} /> : <MyInfoMobile page={match.params.tab} />}
       </Grid>

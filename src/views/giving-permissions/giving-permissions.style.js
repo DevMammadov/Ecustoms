@@ -76,9 +76,6 @@ export const useStyles = makeStyles((theme) => {
     dataTableTitleButton: {
       textTransform: "capitalize",
     },
-    titleButtonIcon: {
-      marginRight: theme.spacing(1),
-    },
     dataTableButtonsContainer: {
       display: "flex",
       justifyContent: "space-between",
@@ -86,19 +83,18 @@ export const useStyles = makeStyles((theme) => {
         fontSize: "0.9rem",
         padding: theme.spacing(1.1),
         borderRadius: "100%",
-        color: theme.palette.common.white,
         "&:hover": {
           opacity: 0.7,
         },
       },
       "& button:nth-child(1)": {
-        background: theme.palette.primary.main,
+        color: theme.palette.primary.main,
       },
       "& button:nth-child(2)": {
-        background: theme.palette.danger.main,
+        color: theme.palette.danger.main,
       },
       "& button:nth-child(3)": {
-        background: theme.palette.color.gray,
+        color: theme.palette.color.gray,
       },
     },
     sertificateSelectRoot: {},

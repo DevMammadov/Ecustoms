@@ -17,9 +17,6 @@ const Checkboxes: FC<ICheckboxes> = ({ permissions, onCheck, onSend, loading, wi
 
   const onSubmit = (data: IPersmission) => {
     onSend();
-    if (!loading) {
-      history.push("/giving-permissions");
-    }
   };
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {

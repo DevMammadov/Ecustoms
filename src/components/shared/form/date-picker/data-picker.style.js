@@ -1,30 +1,37 @@
 import { makeStyles } from "@material-ui/core/styles";
+import { grey } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme) => {
   return {
     picker: {
-      border: `1px solid ${theme.palette.custom.borderColor}`,
-      padding: theme.spacing(0.8),
-      width: "100%",
-      borderRadius: theme.spacing(1),
-      margin: 0,
-      "& .MuiInputBase-input": {
-        border: "none",
-        padding: 0,
-      },
-      "& .MuiButtonBase-root": {
-        padding: theme.spacing(0.3),
-        "& .MuiSvgIcon-root": {
-          fontSize: "1.4rem",
-        },
-      },
-    },
-    label: {
-      color: theme.palette.custom.grayToWhite,
       width: "100%",
       margin: 0,
-      textAlign: "left",
+      "& .Mui-disabled": {
+        color: "#4B506D",
+        background: grey[100],
+      },
+      "& .MuiInputBase-root": {
+        overflow: "hidden",
+      },
+      "& .MuiOutlinedInput-adornedEnd": {
+        paddingRight: 0,
+      },
     },
+    pickerInput: {
+      background: "red",
+    },
+    heplerText: {
+      fontSize: "0.75rem",
+      marginTop: theme.spacing(0.5),
+      color: "red",
+    },
+    errorBorder: {
+      border: `1px solid red`,
+      "& .MuiSvgIcon-root": {
+        color: "red",
+      },
+    },
+
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
     [theme.breakpoints.down("md")]: {},

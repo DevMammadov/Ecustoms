@@ -1,5 +1,4 @@
 export * from "./useTranslator";
-export * from "./StyleWord";
 export * from "./translator";
 
 /*

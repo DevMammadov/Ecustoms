@@ -53,7 +53,11 @@ export const useStyles = makeStyles((theme) => {
     [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
     [theme.breakpoints.down("md")]: {},
-    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.down("sm")]: {
+      container: {
+        margin: theme.spacing(0, 0, 7),
+      },
+    },
     [theme.breakpoints.down("xs")]: {},
   };
 });

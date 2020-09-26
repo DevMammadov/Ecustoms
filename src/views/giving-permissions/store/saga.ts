@@ -3,6 +3,8 @@ import { bindAsyncActions } from "helpers";
 import { toast } from "react-toastify";
 import { takeEvery, put } from "redux-saga/effects";
 import { PermissionsActions } from "./action";
+import { push } from "connected-react-router";
+import { links } from "routes/links";
 
 export function* permissionsSaga() {
   yield takeEvery(
@@ -55,9 +57,10 @@ const failFlow = ({ payload }: any) => {
   console.log(payload);
 };
 
-const permissionSuccessFlow = () => {
+function* permissionSuccessFlow() {
   toast.success("selahiyyetleriniz yenilendi");
-};
+  yield put(push(links.GivingPermission.baseUrl));
+}
 
 const updateActivitySuccessFlow = () => {
   toast.success("statusunuz yenilendi");

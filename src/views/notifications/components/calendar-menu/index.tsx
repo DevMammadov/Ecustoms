@@ -6,21 +6,14 @@ import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { DateButton } from "./date-button";
 
-export const CalendarMenu: FC<MenuProps> = ({ ...rest }) => {
+export const CalendarMenu: FC<MenuProps> = ({ open, onClose, ...rest }) => {
   const classes = useStyles();
   const [startDate, changeStartDate] = useState(new Date());
   const [endtDate, changeEndDate] = useState(new Date());
   const [order, setOrder] = useState(1);
 
   return (
-    <StyledMenu
-      id="customized-menu"
-      anchorEl={rest.anchorEl}
-      keepMounted
-      open={rest.open}
-      onClose={rest.onClose}
-      {...rest}
-    >
+    <StyledMenu id="customized-menu" anchorEl={rest.anchorEl} keepMounted open={open} onClose={onClose} {...rest}>
       <Typography component="div" className={classes.menuHeader}>
         <DateButton onClick={() => setOrder(1)} date={startDate} />
         <DateButton onClick={() => setOrder(2)} date={endtDate} />

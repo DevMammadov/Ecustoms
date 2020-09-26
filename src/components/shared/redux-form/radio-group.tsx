@@ -12,11 +12,10 @@ const CustomRadioGroup: FC<RadioGroupProps & ICustomRadioGroup> = ({ errorText, 
 };
 
 const mapValueToValueSelected = ({ input: { ...inputProps }, ...props }, errorProp: any) => {
-  //console.log(inputProps.value);
   return mapError(
     {
       ...props,
-      input: { ...inputProps, value: inputProps.value },
+      input: { ...inputProps, value: String(inputProps.value) },
     },
     errorProp
   );

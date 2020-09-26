@@ -1,134 +1,75 @@
 import { makeStyles } from "@material-ui/core/styles";
+const drawerWidth = 280;
 
 export const useStyles = makeStyles((theme) => {
   return {
-    aside: {
-      paddingTop: theme.spacing(1),
-      transition: "all .3s ease 0s",
-      position: "relative",
-      minHeight: "100vh",
-      boxSizing: "border-box",
-      background: theme.palette.background.main,
-      color: theme.palette.color.white,
-      fontWeight: "400",
-      "& $logo": {
+    drawePaper: {
+      background: theme.palette.primary.main,
+      top: "unset", // will be removed after beta
+      "&:hover": {
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: theme.palette.primary.light,
+        },
+      },
+      "&::-webkit-scrollbar": {
+        width: 6,
+      },
+      "&::-webkit-scrollbar-track": {},
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: theme.palette.color.gray,
+        borderRadius: 4,
+      },
+      "&::-webkit-scrollbar-thumb:hover": {},
+    },
+    drawerOpen: {
+      width: drawerWidth,
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      overflowX: "hidden",
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing(8.5),
+      },
+    },
+    logo: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: theme.spacing(0, 2, 2.5, 2),
+      marginTop: theme.spacing(1),
+      "& a": {
+        color: theme.palette.color.white,
+        whiteSpace: "nowrap",
+        textDecoration: "none",
         display: "flex",
-        justifyContent: "space-between",
-        padding: theme.spacing(0, 0, 1, 2.2),
-        "& $logoContainer": {
-          "& a": {
-            display: "flex",
-            alignItems: "center",
-            "& img": {
-              height: "30px",
-              width: "30px",
-            },
-            "& span": {
-              fontSize: "16px",
-              lineHeight: "30px",
-              display: "inline-block",
-              whiteSpace: "nowrap",
-              marginLeft: "15px",
-              color: theme.palette.color.white,
-            },
-          },
+        alignItems: "center",
+        "& img": {
+          marginRight: theme.spacing(2),
         },
       },
     },
-    closeButton: {},
-    collapse: {},
-    logoContainer: {},
-    logo: {},
-    [theme.breakpoints.down("xl")]: {
-      collapse: {
-        overflow: "hidden",
-        width: "60px !important",
-        "& div:nth-child(2)": {
-          "& > ul > li > a": {
-            visibility: "hidden",
-            padding: "0 !important",
-          },
-        },
-      },
-      closeButton: {
-        display: "none",
-      },
+    closeButton: {
+      color: theme.palette.color.white,
     },
+    keylistContainer: {},
+    mobileDrawerPaper: {
+      background: theme.palette.primary.main,
+      top: "25px", // will be removed after beta
+    },
+    [theme.breakpoints.down("xl")]: {},
     [theme.breakpoints.down("lg")]: {},
     [theme.breakpoints.down("md")]: {},
-    [theme.breakpoints.down("sm")]: {
-      aside: {
-        left: "-300px",
-        "& $closeButton": {
-          position: "absolute",
-          right: "20px",
-          color: theme.palette.common.white,
-          padding: theme.spacing(1.2),
-          display: "block",
-        },
-      },
-      collapse: {
-        left: 0,
-        width: "280px !important",
-        marginLeft: 0,
-        "& div:nth-child(2)": {
-          "& > ul > li > a": {
-            visibility: "visible",
-            padding: "15px 20px !important",
-          },
-        },
-      },
-    },
+    [theme.breakpoints.down("sm")]: {},
     [theme.breakpoints.down("xs")]: {
-      aside: {
-        left: "-100%",
-        "& $logo": {
-          justifyContent: "center",
-          textDecoration: "none",
-          paddingLeft: 0,
-          "& $logoContainer": {
-            "& a": {
-              flexDirection: "column",
-              textDecoration: "none",
-              alignItems: "center",
-              "& img": {
-                height: "100px",
-                width: "100px",
-                display: "block",
-              },
-              "& span": {
-                fontSize: "16px",
-                lineHeight: "30px",
-                display: "block",
-                marginLeft: "10px",
-                flex: 1,
-              },
-              "&:hover": {
-                textDecoration: "none",
-              },
-              "&:active": {
-                textDecoration: "none",
-              },
-            },
-          },
-        },
-        "& $closeButton": {
-          position: "absolute",
-          right: "20px",
-          color: theme.palette.common.white,
-          padding: theme.spacing(1.2),
-          display: "block",
-        },
-      },
-      collapse: {
-        left: 0,
-        marginLeft: 0,
-        "& div:nth-child(2)": {
-          "& > ul > li > a": {
-            visibility: "visible",
-            padding: "15px 20px !important",
-          },
-        },
+      keylistContainer: {
+        padding: "0 20px",
       },
     },
   };
